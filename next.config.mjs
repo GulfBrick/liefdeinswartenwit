@@ -1,10 +1,17 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { imageHosts } from './image-hosts.config.mjs';
+
+const repoRoot = path.dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   distDir: process.env.DIST_DIR || '.next',
+  output: 'standalone',
+  outputFileTracingRoot: repoRoot,
 
   images: {
     remotePatterns: imageHosts,
