@@ -9,7 +9,7 @@ import { useAuth } from '@/context/AuthContext';
 const invitationMeta = [
   { label: 'Venue', value: 'Featherwood Farm, Rayton' },
   { label: 'Ceremony', value: '15:30 for 16:00' },
-  { label: 'Dress', value: 'Colourful formal' },
+  { label: 'Dress', value: 'Colourful Semi-Formal' },
   { label: 'RSVP', value: '14 August 2026' },
 ];
 
@@ -60,7 +60,7 @@ export default function HeroSection() {
           >
             {guest && (
               <span
-                className="mb-8 inline-flex items-center rounded-full px-4 py-2 text-[0.7rem] uppercase tracking-[0.18em] text-ivory-deep"
+                className="mb-8 inline-flex items-center rounded-sm px-4 py-2 text-[0.7rem] uppercase tracking-[0.18em] text-ivory-deep"
                 style={{
                   background: 'rgba(245, 239, 231, 0.05)',
                   border: '1px solid rgba(245, 239, 231, 0.1)',
@@ -100,7 +100,7 @@ export default function HeroSection() {
             <div className="mt-10 flex flex-wrap items-center gap-6">
               <a
                 href="#rsvp"
-                className="inline-flex items-center justify-center rounded-full px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-transform duration-200 hover:-translate-y-0.5"
                 style={{
                   background:
                     'linear-gradient(135deg, rgba(23, 20, 23, 0.96), rgba(201, 123, 134, 0.88))',
@@ -155,7 +155,7 @@ export default function HeroSection() {
                 <p className="text-[0.7rem] uppercase tracking-[0.16em] text-[#c7ab78]">
                   A dress note
                 </p>
-                <p className="mt-2 text-2xl font-display text-ivory-deep">Colourful formal</p>
+                <p className="mt-2 text-2xl font-display text-ivory-deep">Colourful Semi-Formal</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted-light">
                   Think rich colour, elegant tailoring, and a little warmth for the evening.
                 </p>
