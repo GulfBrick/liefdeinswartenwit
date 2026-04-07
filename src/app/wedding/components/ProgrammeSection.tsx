@@ -44,8 +44,8 @@ const programme: ProgrammeEntry[] = [
   },
   {
     time: '19:30',
-    event: 'Entrance and first dance',
-    desc: 'Our first dance before dinner is served.',
+    event: 'Entrance',
+    desc: 'We enter together as husband and wife.',
   },
   {
     time: '20:00',
@@ -57,11 +57,6 @@ const programme: ProgrammeEntry[] = [
     time: '21:00',
     event: 'Dance floor opens',
     desc: 'The formalities soften and the party begins.',
-  },
-  {
-    time: '22:00',
-    event: 'Bouquet toss',
-    desc: 'A quick pause for tradition, then back to the music.',
   },
   {
     time: 'Late',
