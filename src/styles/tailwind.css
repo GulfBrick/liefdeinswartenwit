@@ -468,3 +468,53 @@ body {
     border-radius: 8rem 8rem 1.5rem 1.5rem;
   }
 }
+
+@layer components {
+  .section-bg-dark {
+    background-color: #0A0A0D;
+  }
+
+  .section-bg-dark-alt {
+    background: linear-gradient(180deg, #0A0A0D 0%, #0D0D12 50%, #0A0A0D 100%);
+  }
+
+  .editorial-card {
+    background: linear-gradient(180deg, #F9F3EA 0%, #F0E8DC 100%);
+    border: 1px solid #d9ccb9;
+    color: #312b27;
+    border-radius: 2px;
+  }
+
+  .editorial-outline {
+    background: rgba(10, 10, 13, 0.72);
+    border: 1px solid rgba(245, 239, 231, 0.12);
+    backdrop-filter: blur(12px);
+    border-radius: 2px;
+  }
+
+  .glass-card {
+    background: rgba(17, 17, 22, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    border-radius: 2px;
+  }
+
+  .section-kicker {
+    display: inline-block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #c7ab78;
+  }
+
+  .glow-heading {
+    text-shadow: 0 0 80px rgba(201, 123, 134, 0.18);
+  }
+
+  .text-shimmer {
+    background: linear-gradient(135deg, #c7ab78 0%, #DDA0A8 60%, #c7ab78 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
