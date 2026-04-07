@@ -32,9 +32,9 @@
 **Plans**: 4 plans
 Plans:
 - [x] 03-01-PLAN.md — CSS foundation: define missing utility classes + patch all CSS border-radius to 2px
-- [ ] 03-02-PLAN.md — Content fixes + DetailsSection gradient pop (programme, dress code, visual treatment)
+- [x] 03-02-PLAN.md — Content fixes + DetailsSection gradient pop (programme, dress code, visual treatment)
 - [ ] 03-03-PLAN.md — Sharp corners + contrast pass on all remaining components
-- [ ] 03-04-PLAN.md — Create BankingSection component and wire into page
+- [x] 03-04-PLAN.md — Create BankingSection component and wire into page
 **UI hint**: yes
 
 ### Phase 4: Animations Refresh

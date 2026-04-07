@@ -7,22 +7,22 @@
 
 ### Visual Design
 
-- [ ] **VIS-01**: All text across the page has sufficient contrast against dark backgrounds (no more disappearing text)
-- [ ] **VIS-02**: Invitation details section (ceremony, reception, dress code, gifts) visually pops with stronger borders, backgrounds, or highlights
+- [x] **VIS-01**: All text across the page has sufficient contrast against dark backgrounds (no more disappearing text)
+- [x] **VIS-02**: Invitation details section (ceremony, reception, dress code, gifts) visually pops with stronger borders, backgrounds, or highlights
 - [x] **VIS-03**: All rounded corners replaced with near-90° sharp corners site-wide (cards, buttons, inputs, photos)
 - [x] **VIS-04**: Consistent design language across all sections (same card styles, spacing rhythm, border treatments)
 
 ### Content
 
-- [ ] **CNT-01**: Programme entry "Entrance and first dance" changed to just "Entrance"
-- [ ] **CNT-02**: "Bouquet toss" entry removed from programme entirely
-- [ ] **CNT-03**: Dress code confirmed as "Colourful Semi-Formal" with correct wording
+- [x] **CNT-01**: Programme entry "Entrance and first dance" changed to just "Entrance"
+- [x] **CNT-02**: "Bouquet toss" entry removed from programme entirely
+- [x] **CNT-03**: Dress code confirmed as "Colourful Semi-Formal" with correct wording
 
 ### Banking
 
-- [ ] **BNK-01**: Banking section populated with real banking details replacing placeholders
-- [ ] **BNK-02**: Banking section covers both accommodation payment AND honeymoon gift contributions
-- [ ] **BNK-03**: Payment reference uses guest's invite code (not surname)
+- [x] **BNK-01**: Banking section populated with real banking details replacing placeholders
+- [x] **BNK-02**: Banking section covers both accommodation payment AND honeymoon gift contributions
+- [x] **BNK-03**: Payment reference uses guest's invite code (not surname)
 
 ### Animations
 
@@ -44,16 +44,16 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| VIS-01 | Phase 3 | Pending |
-| VIS-02 | Phase 3 | Pending |
+| VIS-01 | Phase 3 | Complete |
+| VIS-02 | Phase 3 | Complete |
 | VIS-03 | Phase 3 | Complete |
 | VIS-04 | Phase 3 | Complete |
-| CNT-01 | Phase 3 | Pending |
-| CNT-02 | Phase 3 | Pending |
-| CNT-03 | Phase 3 | Pending |
-| BNK-01 | Phase 3 | Pending |
-| BNK-02 | Phase 3 | Pending |
-| BNK-03 | Phase 3 | Pending |
+| CNT-01 | Phase 3 | Complete |
+| CNT-02 | Phase 3 | Complete |
+| CNT-03 | Phase 3 | Complete |
+| BNK-01 | Phase 3 | Complete |
+| BNK-02 | Phase 3 | Complete |
+| BNK-03 | Phase 3 | Complete |
 | ANI-01 | Phase 4 | Pending |
 | ANI-02 | Phase 4 | Pending |
 | GAL-01 | Phase 5 | Pending |
