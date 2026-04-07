@@ -33,7 +33,7 @@
 Plans:
 - [x] 03-01-PLAN.md — CSS foundation: define missing utility classes + patch all CSS border-radius to 2px
 - [x] 03-02-PLAN.md — Content fixes + DetailsSection gradient pop (programme, dress code, visual treatment)
-- [ ] 03-03-PLAN.md — Sharp corners + contrast pass on all remaining components
+- [x] 03-03-PLAN.md — Sharp corners + contrast pass on all remaining components
 - [x] 03-04-PLAN.md — Create BankingSection component and wire into page
 **UI hint**: yes
 
