@@ -67,7 +67,7 @@ export default function DotsSection() {
               href={DOTS_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center justify-center rounded-full px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep"
+              className="mt-8 inline-flex items-center justify-center rounded-sm px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep"
               style={{
                 background:
                   'linear-gradient(135deg, rgba(23, 20, 23, 0.96), rgba(113, 142, 132, 0.88))',

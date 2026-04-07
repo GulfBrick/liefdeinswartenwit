@@ -30,7 +30,7 @@ export default function Header() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6">
       <div
-        className="mx-auto max-w-7xl rounded-full border transition-all duration-500"
+        className="mx-auto max-w-7xl rounded-sm border transition-all duration-500"
         style={{
           background: scrolled ? 'rgba(10, 10, 13, 0.78)' : 'rgba(10, 10, 13, 0.36)',
           backdropFilter: 'blur(18px)',
@@ -74,7 +74,7 @@ export default function Header() {
             {guest && (
               <div className="hidden lg:flex items-center gap-4">
                 <span
-                  className="rounded-full px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] text-ivory-deep"
+                  className="rounded-sm px-3 py-1.5 text-[0.68rem] uppercase tracking-[0.18em] text-ivory-deep"
                   style={{
                     background: 'rgba(245, 239, 231, 0.04)',
                     border: '1px solid rgba(245, 239, 231, 0.1)',
@@ -125,7 +125,7 @@ export default function Header() {
       {menuOpen && (
         <div className="mx-auto mt-3 max-w-7xl px-1 lg:hidden">
           <div
-            className="rounded-[1.75rem] border px-6 py-6"
+            className="rounded-sm border px-6 py-6"
             style={{
               background: 'rgba(10, 10, 13, 0.94)',
               backdropFilter: 'blur(20px)',

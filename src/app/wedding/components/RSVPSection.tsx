@@ -243,7 +243,7 @@ export default function RSVPSection() {
                     <button
                       type="button"
                       onClick={() => setForm((previous) => ({ ...previous, attending: 'yes' }))}
-                      className="rounded-2xl px-6 py-4 text-sm tracking-[0.03em] transition-all"
+                      className="rounded-sm px-6 py-4 text-sm tracking-[0.03em] transition-all"
                       style={{
                         background: form.attending === 'yes' ? '#171417' : 'rgba(23, 20, 23, 0.06)',
                         color: form.attending === 'yes' ? '#FBF8F3' : '#4D443D',
@@ -255,7 +255,7 @@ export default function RSVPSection() {
                     <button
                       type="button"
                       onClick={() => setForm((previous) => ({ ...previous, attending: 'no' }))}
-                      className="rounded-2xl px-6 py-4 text-sm tracking-[0.03em] transition-all"
+                      className="rounded-sm px-6 py-4 text-sm tracking-[0.03em] transition-all"
                       style={{
                         background: form.attending === 'no' ? '#5A474B' : 'rgba(90, 71, 75, 0.08)',
                         color: form.attending === 'no' ? '#FBF8F3' : '#5A474B',
@@ -309,7 +309,7 @@ export default function RSVPSection() {
                             onClick={() =>
                               setForm((previous) => ({ ...previous, needsAccommodation: 'yes' }))
                             }
-                            className="rounded-2xl px-4 py-4 text-sm tracking-[0.03em]"
+                            className="rounded-sm px-4 py-4 text-sm tracking-[0.03em]"
                             style={{
                               background:
                                 form.needsAccommodation === 'yes'
@@ -326,7 +326,7 @@ export default function RSVPSection() {
                             onClick={() =>
                               setForm((previous) => ({ ...previous, needsAccommodation: 'no' }))
                             }
-                            className="rounded-2xl px-4 py-4 text-sm tracking-[0.03em]"
+                            className="rounded-sm px-4 py-4 text-sm tracking-[0.03em]"
                             style={{
                               background:
                                 form.needsAccommodation === 'no'
@@ -380,7 +380,7 @@ export default function RSVPSection() {
 
                 {submitError && (
                   <p
-                    className="rounded-2xl px-4 py-3 text-base text-[#5A474B]"
+                    className="rounded-sm px-4 py-3 text-base text-[#5A474B]"
                     style={{
                       background: 'rgba(201, 123, 134, 0.12)',
                       border: '1px solid rgba(201, 123, 134, 0.2)',
@@ -395,7 +395,7 @@ export default function RSVPSection() {
                   <button
                     type="submit"
                     disabled={loading || !form.attending}
-                    className="inline-flex items-center justify-center rounded-full px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-40"
                     style={{
                       background:
                         'linear-gradient(135deg, rgba(23, 20, 23, 0.96), rgba(201, 123, 134, 0.92))',

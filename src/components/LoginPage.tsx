@@ -49,7 +49,7 @@ export default function LoginPage() {
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-12">
         <div
-          className={`w-full max-w-6xl overflow-hidden rounded-[2rem] border transition-all duration-1000 ${
+          className={`w-full max-w-6xl overflow-hidden rounded-sm border transition-all duration-1000 ${
             loaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
           }`}
           style={{
@@ -133,7 +133,7 @@ export default function LoginPage() {
 
                 {error && (
                   <p
-                    className="rounded-[1.1rem] px-4 py-3 text-base text-[#5b2d34]"
+                    className="rounded-sm px-4 py-3 text-base text-[#5b2d34]"
                     style={{
                       background: 'rgba(201, 123, 134, 0.14)',
                       border: '1px solid rgba(201, 123, 134, 0.22)',
@@ -146,7 +146,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading || !code.trim()}
-                  className="w-full rounded-full px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-transform duration-200 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="w-full rounded-sm px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-transform duration-200 disabled:cursor-not-allowed disabled:opacity-40"
                   style={{
                     background:
                       'linear-gradient(135deg, rgba(23, 20, 23, 0.96), rgba(157, 98, 108, 0.96))',

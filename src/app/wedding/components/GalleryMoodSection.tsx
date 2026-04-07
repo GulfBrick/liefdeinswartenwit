@@ -95,7 +95,7 @@ export default function GalleryMoodSection() {
                     key={image.src}
                     type="button"
                     onClick={() => setLightbox(index)}
-                    className={`${image.span} group relative overflow-hidden rounded-[1.35rem] text-left`}
+                    className={`${image.span} group relative overflow-hidden rounded-sm text-left`}
                   >
                     <AppImage
                       src={image.src}
@@ -178,7 +178,7 @@ export default function GalleryMoodSection() {
             <AppImage
               src={galleryImages[lightbox].src}
               alt={galleryImages[lightbox].alt}
-              className="max-h-[85vh] max-w-full rounded-2xl object-contain"
+              className="max-h-[85vh] max-w-full rounded-sm object-contain"
               width={1200}
               height={800}
               quality={90}
