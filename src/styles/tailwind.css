@@ -232,7 +232,7 @@ body {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(232, 51, 109, 0.25);
-  border-radius: 0.75rem;
+  border-radius: 2px;
   padding: 0.875rem 1.25rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -257,7 +257,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
+  border-radius: 2px;
   padding: 0.875rem 1.25rem;
   font-family: var(--font-body);
   font-size: 0.95rem;
@@ -290,7 +290,7 @@ body {
   padding: 1rem 2.5rem;
   background: var(--color-ink);
   color: #ffffff;
-  border-radius: 9999px;
+  border-radius: 2px;
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.95rem;
@@ -318,7 +318,7 @@ body {
   padding: 1rem 2.5rem;
   background: transparent;
   color: rgba(255, 255, 255, 0.8);
-  border-radius: 9999px;
+  border-radius: 2px;
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.95rem;
@@ -342,7 +342,7 @@ body {
   padding: 1rem 2.5rem;
   background: transparent;
   color: rgba(255, 255, 255, 0.7);
-  border-radius: 9999px;
+  border-radius: 2px;
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.95rem;
@@ -375,7 +375,7 @@ body {
 /* ── Dots app card ── */
 .dots-card {
   background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
-  border-radius: 2rem;
+  border-radius: 2px;
   position: relative;
   overflow: hidden;
 }
