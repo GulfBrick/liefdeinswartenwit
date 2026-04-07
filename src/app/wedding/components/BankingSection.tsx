@@ -54,7 +54,9 @@ export default function BankingSection() {
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Reference</span>
-                <span className="text-ivory-deep font-display text-bloom-light">{referenceCode}</span>
+                <span className="text-ivory-deep font-display text-bloom-light">
+                  {referenceCode}
+                </span>
               </div>
             </div>
 
@@ -93,7 +95,9 @@ export default function BankingSection() {
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Reference</span>
-                <span className="text-ivory-deep font-display text-bloom-light">{referenceCode}</span>
+                <span className="text-ivory-deep font-display text-bloom-light">
+                  {referenceCode}
+                </span>
               </div>
             </div>
 

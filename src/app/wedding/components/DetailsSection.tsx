@@ -54,7 +54,13 @@ export default function DetailsSection() {
 
           <div className="editorial-card p-8 md:p-10 lg:p-12 reveal reveal-delay-1">
             <div className="grid gap-10 lg:grid-cols-3">
-              <div className="p-6 -m-2 rounded-sm" style={{ background: 'linear-gradient(180deg, rgba(201,123,134,0.10) 0%, transparent 100%)' }}>
+              <div
+                className="p-6 -m-2 rounded-sm"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(201,123,134,0.10) 0%, transparent 100%)',
+                }}
+              >
                 <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
                   Ceremony
                 </p>
@@ -77,7 +83,13 @@ export default function DetailsSection() {
                 </a>
               </div>
 
-              <div className="p-6 -m-2 rounded-sm" style={{ background: 'linear-gradient(180deg, rgba(113,142,132,0.07) 0%, transparent 100%)' }}>
+              <div
+                className="p-6 -m-2 rounded-sm"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(113,142,132,0.07) 0%, transparent 100%)',
+                }}
+              >
                 <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
                   Celebration
                 </p>
@@ -91,7 +103,12 @@ export default function DetailsSection() {
                 </ul>
               </div>
 
-              <div className="p-6 -m-2 rounded-sm" style={{ background: 'linear-gradient(180deg, rgba(183,146,81,0.07) 0%, transparent 100%)' }}>
+              <div
+                className="p-6 -m-2 rounded-sm"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(183,146,81,0.07) 0%, transparent 100%)',
+                }}
+              >
                 <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">Dress</p>
                 <h3 className="mt-4 text-3xl font-display text-ink md:text-4xl">
                   Colourful Semi-Formal
