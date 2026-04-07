@@ -10,6 +10,7 @@ import DetailsSection from './components/DetailsSection';
 import GalleryMoodSection from './components/GalleryMoodSection';
 import ProgrammeSection from './components/ProgrammeSection';
 import AccommodationSection from './components/AccommodationSection';
+import BankingSection from './components/BankingSection';
 import RSVPSection from './components/RSVPSection';
 import DotsSection from './components/DotsSection';
 
@@ -45,6 +46,7 @@ export default function WeddingPage() {
             <DetailsSection />
             <ProgrammeSection />
             <AccommodationSection />
+            <BankingSection />
             <GalleryMoodSection />
             <DotsSection />
             <RSVPSection />
