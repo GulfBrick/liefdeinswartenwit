@@ -20,7 +20,7 @@ export const guestList: Guest[] = [
   { code: 'NIKDAN-ELKES-Y9Z2', name: 'Elke', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-TMELA-C6D7', name: 'Tani Melanie', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-TSAND-G2H3', name: 'Tani Sandra', maxGuests: 1, hasRSVPd: false },
-  { code: 'NIKDAN-TRIAN-J4K5', name: 'Tani Rianca', maxGuests: 1, hasRSVPd: false },
+  { code: 'NIKDAN-TRIAN-J4K5', name: 'Riana', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-OFRIK-N8P9', name: 'Oom Frikkie', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-OHEIN-S4T5', name: 'Oom Heinz', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-OLIDI-W8X9', name: 'Ouma Lidia', maxGuests: 1, hasRSVPd: false },
@@ -40,7 +40,7 @@ export const guestList: Guest[] = [
   { code: 'NIKDAN-LEOVD-Y8Z9', name: 'Leo', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-CHRYS-C5D6', name: 'Chrystal', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-FRANS-G9H2', name: 'Frans', maxGuests: 1, hasRSVPd: false },
-  { code: 'NIKDAN-OBENN-N7P8', name: 'Oom Benny', maxGuests: 2, hasRSVPd: false, plusOne: true },
+  { code: 'NIKDAN-OBENN-N7P8', name: 'Ben & Ina', maxGuests: 2, hasRSVPd: false, plusOne: true },
   { code: 'NIKDAN-OBOZZ-S3T4', name: 'Oom Bozz', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-TLIES-W7X8', name: 'Tani Liezel', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-LILLI-A4B5', name: 'Lillie', maxGuests: 2, hasRSVPd: false, plusOne: true },
@@ -54,6 +54,10 @@ export const guestList: Guest[] = [
   { code: 'NIKDAN-ORONA-L7M8', name: 'Ouma Rona', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-MARJO-U7V8', name: 'Marjone', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-GERHA-Y3Z4', name: 'Gerhard', maxGuests: 1, hasRSVPd: false },
+  { code: 'NIKDAN-MICHE-D4E5', name: 'Michelle', maxGuests: 1, hasRSVPd: false },
+  { code: 'NIKDAN-OOUBO-F6G7', name: 'Oom Ou Boet', maxGuests: 3, hasRSVPd: false },
+  { code: 'NIKDAN-ROCCO-H8J9', name: 'Rocco', maxGuests: 1, hasRSVPd: false },
+  { code: 'NIKDAN-OPALE-K2L3', name: 'Opal', maxGuests: 1, hasRSVPd: false },
 ];
 
 export function findGuestByCode(code: string): Guest | null {
