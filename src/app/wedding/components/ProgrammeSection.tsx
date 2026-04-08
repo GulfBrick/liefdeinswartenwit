@@ -87,8 +87,7 @@ export default function ProgrammeSection() {
       return;
     }
 
-    const slideDistance =
-      typeof window !== 'undefined' && window.innerWidth < 640 ? 32 : 56;
+    const slideDistance = typeof window !== 'undefined' && window.innerWidth < 640 ? 32 : 56;
 
     // Set initial hidden state
     separators.forEach((el) => {

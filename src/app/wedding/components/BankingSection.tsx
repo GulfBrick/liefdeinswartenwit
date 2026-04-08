@@ -29,8 +29,7 @@ export default function BankingSection() {
       return;
     }
 
-    const slideDistance =
-      typeof window !== 'undefined' && window.innerWidth < 640 ? 40 : 72;
+    const slideDistance = typeof window !== 'undefined' && window.innerWidth < 640 ? 40 : 72;
 
     left.style.opacity = '0';
     left.style.transform = `translateX(-${slideDistance}px)`;
@@ -140,7 +139,11 @@ export default function BankingSection() {
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
               {bankRows.map(({ label, value, highlight }) => (
-                <div key={label} data-bank-row className="flex items-center justify-between gap-2 sm:gap-4">
+                <div
+                  key={label}
+                  data-bank-row
+                  className="flex items-center justify-between gap-2 sm:gap-4"
+                >
                   <span className="shrink-0 text-sm text-muted">{label}</span>
                   <span
                     className="min-w-0 truncate text-right font-display text-base"
@@ -174,7 +177,11 @@ export default function BankingSection() {
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
               {bankRows.map(({ label, value, highlight }) => (
-                <div key={label} data-bank-row className="flex items-center justify-between gap-2 sm:gap-4">
+                <div
+                  key={label}
+                  data-bank-row
+                  className="flex items-center justify-between gap-2 sm:gap-4"
+                >
                   <span className="shrink-0 text-sm text-muted">{label}</span>
                   <span
                     className="min-w-0 truncate text-right font-display text-base"

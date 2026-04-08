@@ -395,7 +395,10 @@ export default function GalleryMoodSection() {
             </svg>
           </button>
 
-          <div className="max-h-[88vh] max-w-[calc(100vw-3rem)] md:max-w-5xl" onClick={(event) => event.stopPropagation()}>
+          <div
+            className="max-h-[88vh] max-w-[calc(100vw-3rem)] md:max-w-5xl"
+            onClick={(event) => event.stopPropagation()}
+          >
             <AppImage
               src={galleryImages[lightbox].src}
               alt={galleryImages[lightbox].alt}

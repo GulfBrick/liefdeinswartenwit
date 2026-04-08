@@ -156,7 +156,10 @@ export default function Footer() {
                 3 October 2026 · Featherwood Farm · Rayton
               </p>
 
-              <nav ref={linksRef} className="mt-8 flex flex-wrap gap-x-4 gap-y-3 sm:gap-x-6 lg:justify-end">
+              <nav
+                ref={linksRef}
+                className="mt-8 flex flex-wrap gap-x-4 gap-y-3 sm:gap-x-6 lg:justify-end"
+              >
                 {footerLinks.map((item) => (
                   <button
                     key={item.id}
