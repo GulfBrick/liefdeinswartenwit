@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Icon from '@/components/ui/AppIcon';
 import { useReveal } from '@/hooks/useReveal';
@@ -12,6 +12,75 @@ const DOTS_LINK =
 export default function DotsSection() {
   const sectionRef = useReveal();
   const [copied, setCopied] = useState(false);
+
+  const cardRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLAnchorElement>(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+      return;
+    }
+
+    // Set initial tilt perspective state
+    card.style.opacity = '0';
+    card.style.transform = 'perspective(800px) rotateX(8deg) translateY(40px) scale(0.96)';
+    card.style.transformOrigin = 'center bottom';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              // Card unfolds from tilt perspective
+              animate(card, {
+                opacity: [0, 1],
+                rotateX: [8, 0],
+                translateY: [40, 0],
+                scale: [0.96, 1],
+                duration: 1000,
+                ease: 'outExpo',
+              });
+
+              // CTA button pulses glow after card settles
+              if (btnRef.current) {
+                const btn = btnRef.current;
+                setTimeout(() => {
+                  btn.style.transition =
+                    'box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.22,1,0.36,1)';
+                  btn.style.boxShadow =
+                    '0 0 48px rgba(168,197,176,0.5), 0 16px 48px rgba(168,197,176,0.35)';
+                  btn.style.transform = 'translateY(-3px)';
+                  setTimeout(() => {
+                    btn.style.boxShadow = '0 10px 28px rgba(168,197,176,0.25)';
+                    btn.style.transform = 'translateY(0)';
+                  }, 600);
+                }, 900);
+              }
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
 
   const copyCode = async () => {
     try {
@@ -46,7 +115,11 @@ export default function DotsSection() {
             </p>
           </div>
 
-          <div className="glass-card p-8 reveal reveal-delay-1">
+          <div
+            ref={cardRef}
+            className="glass-card p-8"
+            style={{ opacity: 0, transformOrigin: 'center bottom' }}
+          >
             <p className="text-[0.72rem] uppercase tracking-[0.18em] text-bloom">Album code</p>
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <p className="font-display text-3xl tracking-[0.12em] text-ivory-deep md:text-4xl">
@@ -67,6 +140,7 @@ export default function DotsSection() {
             </div>
 
             <a
+              ref={btnRef}
               href={DOTS_LINK}
               target="_blank"
               rel="noopener noreferrer"

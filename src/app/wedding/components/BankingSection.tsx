@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
 import { useReveal } from '@/hooks/useReveal';
@@ -9,6 +9,94 @@ export default function BankingSection() {
   const sectionRef = useReveal();
   const { guest } = useAuth();
   const referenceCode = guest?.code || 'YOUR-CODE';
+
+  const leftCardRef = useRef<HTMLDivElement>(null);
+  const rightCardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const left = leftCardRef.current;
+    const right = rightCardRef.current;
+    if (!container || !left || !right) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      left.style.opacity = '1';
+      right.style.opacity = '1';
+      return;
+    }
+
+    left.style.opacity = '0';
+    left.style.transform = 'translateX(-72px)';
+    right.style.opacity = '0';
+    right.style.transform = 'translateX(72px)';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              // Both cards meet in the middle simultaneously
+              animate(left, {
+                opacity: [0, 1],
+                translateX: [-72, 0],
+                duration: 1000,
+                ease: 'outExpo',
+              });
+
+              animate(right, {
+                opacity: [0, 1],
+                translateX: [72, 0],
+                duration: 1000,
+                ease: 'outExpo',
+              });
+
+              // After cards settle, stagger in the bank detail rows
+              const allRows = [
+                ...Array.from(left.querySelectorAll<HTMLElement>('[data-bank-row]')),
+                ...Array.from(right.querySelectorAll<HTMLElement>('[data-bank-row]')),
+              ];
+
+              allRows.forEach((el) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(10px)';
+              });
+
+              animate(allRows, {
+                opacity: [0, 1],
+                translateY: [10, 0],
+                duration: 500,
+                ease: 'outQuart',
+                delay: (_, i) => 700 + i * 60,
+              });
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  const bankRows = [
+    { label: 'Account holder', value: 'Mr Daniel Harrison Swart' },
+    { label: 'Bank', value: 'Nedbank' },
+    { label: 'Account number', value: '1338961527' },
+    { label: 'Branch code', value: '198765' },
+    { label: 'Reference', value: referenceCode, highlight: true },
+  ];
 
   return (
     <section id="banking" ref={sectionRef} className="section-bg-dark px-6 py-24 md:px-12">
@@ -33,9 +121,9 @@ export default function BankingSection() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 reveal reveal-delay-1">
-          {/* Card 1: Accommodation */}
-          <div className="glass-card p-8">
+        <div ref={containerRef} className="mt-10 grid gap-6 md:grid-cols-2">
+          {/* Card 1: Accommodation — slides in from left */}
+          <div ref={leftCardRef} className="glass-card p-8">
             <p className="text-[0.72rem] uppercase tracking-[0.18em] text-bloom">
               Accommodation payment
             </p>
@@ -48,14 +136,8 @@ export default function BankingSection() {
               className="mt-6 space-y-4 border-t pt-6"
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
-              {[
-                { label: 'Account holder', value: 'Mr Daniel Harrison Swart' },
-                { label: 'Bank', value: 'Nedbank' },
-                { label: 'Account number', value: '1338961527' },
-                { label: 'Branch code', value: '198765' },
-                { label: 'Reference', value: referenceCode, highlight: true },
-              ].map(({ label, value, highlight }) => (
-                <div key={label} className="flex items-center justify-between gap-4">
+              {bankRows.map(({ label, value, highlight }) => (
+                <div key={label} data-bank-row className="flex items-center justify-between gap-4">
                   <span className="text-sm text-muted">{label}</span>
                   <span
                     className="font-display text-base"
@@ -75,8 +157,8 @@ export default function BankingSection() {
             </p>
           </div>
 
-          {/* Card 2: Honeymoon */}
-          <div className="glass-card p-8">
+          {/* Card 2: Honeymoon — slides in from right */}
+          <div ref={rightCardRef} className="glass-card p-8">
             <p className="text-[0.72rem] uppercase tracking-[0.18em] text-coral">Honeymoon gift</p>
             <h3 className="mt-4 font-display text-3xl text-ivory-deep">A gift of memories</h3>
             <p className="mt-4 text-base leading-relaxed text-muted-light">
@@ -88,14 +170,8 @@ export default function BankingSection() {
               className="mt-6 space-y-4 border-t pt-6"
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
-              {[
-                { label: 'Account holder', value: 'Mr Daniel Harrison Swart' },
-                { label: 'Bank', value: 'Nedbank' },
-                { label: 'Account number', value: '1338961527' },
-                { label: 'Branch code', value: '198765' },
-                { label: 'Reference', value: referenceCode, highlight: true },
-              ].map(({ label, value, highlight }) => (
-                <div key={label} className="flex items-center justify-between gap-4">
+              {bankRows.map(({ label, value, highlight }) => (
+                <div key={label} data-bank-row className="flex items-center justify-between gap-4">
                   <span className="text-sm text-muted">{label}</span>
                   <span
                     className="font-display text-base"

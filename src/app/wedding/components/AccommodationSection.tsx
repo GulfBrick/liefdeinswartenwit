@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useReveal } from '@/hooks/useReveal';
 
@@ -60,6 +60,58 @@ const accommodations: AccommodationOption[] = [
 
 export default function AccommodationSection() {
   const sectionRef = useReveal();
+  const tableRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const table = tableRef.current;
+    if (!table) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rows = Array.from(table.querySelectorAll<HTMLElement>('[data-accom-row]'));
+
+    if (reduced) {
+      rows.forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    rows.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(48px)';
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              animate(rows, {
+                opacity: [0, 1],
+                translateY: [48, 0],
+                duration: 800,
+                ease: 'outExpo',
+                delay: (_, i) => i * 120,
+              });
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    observer.observe(table);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -89,6 +141,7 @@ export default function AccommodationSection() {
         </div>
 
         <div
+          ref={tableRef}
           className="mt-10 overflow-hidden rounded-sm reveal reveal-delay-1"
           style={{
             background: 'rgba(17,17,22,0.72)',
@@ -99,6 +152,7 @@ export default function AccommodationSection() {
           {accommodations.map((option, index) => (
             <div
               key={option.name}
+              data-accom-row
               className="group grid gap-6 px-6 py-7 transition-all duration-400 hover:bg-white/[0.025] md:grid-cols-[1.1fr_0.9fr] md:px-8"
               style={{
                 borderTop: index === 0 ? 'none' : '1px solid rgba(255,255,255,0.07)',

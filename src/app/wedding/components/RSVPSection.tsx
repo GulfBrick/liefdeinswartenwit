@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
 import { createGuestOptions } from '@/lib/auth';
@@ -45,6 +45,11 @@ export default function RSVPSection() {
     message: '',
   });
 
+  // Animation refs
+  const formCardRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const animated = useRef(false);
+
   React.useEffect(() => {
     if (!guest) return;
     setForm((previous) => ({
@@ -53,6 +58,73 @@ export default function RSVPSection() {
       guestCount: String(Math.min(Number(previous.guestCount) || 1, guest.maxGuests)),
     }));
   }, [guest]);
+
+  // Scroll-triggered form reveal
+  useEffect(() => {
+    const card = formCardRef.current;
+    if (!card) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduced) {
+      card.style.opacity = '1';
+      card.style.transform = 'none';
+      return;
+    }
+
+    card.style.opacity = '0';
+    card.style.transform = 'scale(0.95) translateY(32px)';
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              // Card scales up from center
+              animate(card, {
+                opacity: [0, 1],
+                scale: [0.95, 1],
+                translateY: [32, 0],
+                duration: 900,
+                ease: 'outExpo',
+              });
+
+              // Form fields stagger in from bottom
+              if (formRef.current) {
+                const fields = Array.from(
+                  formRef.current.querySelectorAll<HTMLElement>(
+                    'input, textarea, select, [data-form-group]'
+                  )
+                );
+                fields.forEach((el) => {
+                  el.style.opacity = '0';
+                  el.style.transform = 'translateY(16px)';
+                });
+                animate(fields, {
+                  opacity: [0, 1],
+                  translateY: [16, 0],
+                  duration: 500,
+                  ease: 'outQuart',
+                  delay: (_, i) => 400 + i * 80,
+                });
+              }
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
 
   const guestOptions = useMemo(() => createGuestOptions(guest?.maxGuests || 1), [guest?.maxGuests]);
   const seatSummary =
@@ -159,9 +231,14 @@ export default function RSVPSection() {
               </div>
             </div>
 
-            {/* Right form */}
-            <div className="editorial-card reveal reveal-delay-2 overflow-hidden">
+            {/* Right form — scales up from center on reveal */}
+            <div
+              ref={formCardRef}
+              className="editorial-card overflow-hidden"
+              style={{ opacity: 0 }}
+            >
               <form
+                ref={formRef}
                 name="rsvp"
                 method="POST"
                 data-netlify="true"
@@ -178,7 +255,7 @@ export default function RSVPSection() {
                 </p>
 
                 {/* Name + email */}
-                <div className="grid gap-6 md:grid-cols-2">
+                <div data-form-group className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                       Guest name
@@ -210,7 +287,7 @@ export default function RSVPSection() {
                 </div>
 
                 {/* Phone + seats */}
-                <div className="grid gap-6 md:grid-cols-2">
+                <div data-form-group className="grid gap-6 md:grid-cols-2">
                   <div>
                     <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                       Phone
@@ -248,7 +325,7 @@ export default function RSVPSection() {
                 </div>
 
                 {/* Attendance toggle */}
-                <div>
+                <div data-form-group>
                   <label className="mb-3 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                     Attendance
                   </label>
@@ -294,7 +371,7 @@ export default function RSVPSection() {
 
                 {/* Extra guest names */}
                 {form.attending === 'yes' && guest && guest.maxGuests > 1 && (
-                  <div>
+                  <div data-form-group>
                     <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                       Additional guest names
                     </label>
@@ -311,7 +388,7 @@ export default function RSVPSection() {
 
                 {/* Dietary + accommodation */}
                 {form.attending === 'yes' && (
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div data-form-group className="grid gap-6 md:grid-cols-2">
                     <div>
                       <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                         Dietary requirements
@@ -395,7 +472,7 @@ export default function RSVPSection() {
                 )}
 
                 {/* Message */}
-                <div>
+                <div data-form-group>
                   <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                     A note for us
                   </label>
@@ -420,12 +497,15 @@ export default function RSVPSection() {
                   </p>
                 )}
 
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div
+                  data-form-group
+                  className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+                >
                   <p className="text-base text-[#5E554D]">Your reply comes straight to us.</p>
                   <button
                     type="submit"
                     disabled={loading || !form.attending}
-                    className="btn-glow inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
+                    className="btn-glow rsvp-submit-btn inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
                     style={{
                       background:
                         'linear-gradient(135deg, rgba(212,160,160,0.9) 0%, rgba(180,120,128,0.95) 100%)',
