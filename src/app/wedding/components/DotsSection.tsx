@@ -44,7 +44,7 @@ export default function DotsSection() {
           </div>
 
           <div className="glass-card p-8 reveal reveal-delay-1">
-            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">Album code</p>
+            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">Album code</p>
             <div className="mt-4 flex flex-wrap items-center gap-4">
               <p className="text-3xl font-display tracking-[0.12em] text-ivory-deep md:text-4xl">
                 {DOTS_CODE}

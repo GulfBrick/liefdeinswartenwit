@@ -137,7 +137,7 @@ export default function RSVPSection() {
               </p>
 
               <div className="mt-8 glass-card p-6 md:p-7">
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
                   Prepared for
                 </p>
                 <h3 className="mt-3 text-3xl font-display text-ivory-deep">
@@ -169,7 +169,7 @@ export default function RSVPSection() {
 
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                       Guest name
                     </label>
                     <input
@@ -183,7 +183,7 @@ export default function RSVPSection() {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                       Email
                     </label>
                     <input
@@ -200,7 +200,7 @@ export default function RSVPSection() {
 
                 <div className="grid gap-6 md:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                       Phone
                     </label>
                     <input
@@ -213,7 +213,7 @@ export default function RSVPSection() {
                     />
                   </div>
                   <div>
-                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                       Invitation seats
                     </label>
                     {guest && guest.maxGuests > 1 ? (
@@ -236,7 +236,7 @@ export default function RSVPSection() {
                 </div>
 
                 <div>
-                  <label className="mb-3 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                  <label className="mb-3 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                     Attendance
                   </label>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -269,7 +269,7 @@ export default function RSVPSection() {
 
                 {form.attending === 'yes' && guest && guest.maxGuests > 1 && (
                   <div>
-                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                    <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                       Additional guest names
                     </label>
                     <input
@@ -286,7 +286,7 @@ export default function RSVPSection() {
                 {form.attending === 'yes' && (
                   <div className="grid gap-6 md:grid-cols-2">
                     <div>
-                      <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                      <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                         Dietary requirements
                       </label>
                       <textarea
@@ -300,7 +300,7 @@ export default function RSVPSection() {
 
                     <div className="space-y-6">
                       <div>
-                        <label className="mb-3 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                        <label className="mb-3 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                           Accommodation
                         </label>
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -343,7 +343,7 @@ export default function RSVPSection() {
 
                       {form.needsAccommodation === 'yes' && (
                         <div>
-                          <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                          <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                             Preferred stay
                           </label>
                           <select
@@ -366,7 +366,7 @@ export default function RSVPSection() {
                 )}
 
                 <div>
-                  <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                  <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                     A note for us
                   </label>
                   <textarea

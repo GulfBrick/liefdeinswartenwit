@@ -27,7 +27,7 @@ export default function BankingSection() {
         <div className="mt-10 grid gap-8 md:grid-cols-2 reveal reveal-delay-1">
           {/* Card 1: Accommodation Payment */}
           <div className="glass-card p-8">
-            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
               Accommodation payment
             </p>
             <h3 className="mt-4 text-3xl font-display text-ivory-deep">Staying over</h3>
@@ -67,7 +67,7 @@ export default function BankingSection() {
 
           {/* Card 2: Honeymoon Gift */}
           <div className="glass-card p-8">
-            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+            <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
               Honeymoon gift
             </p>
             <h3 className="mt-4 text-3xl font-display text-ivory-deep">A gift of memories</h3>
