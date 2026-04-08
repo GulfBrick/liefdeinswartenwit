@@ -483,6 +483,11 @@ body {
     border: 1px solid #d9ccb9;
     color: #312b27;
     border-radius: 2px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .editorial-card:hover {
+    box-shadow: 0 0 30px rgba(212, 160, 160, 0.15), 0 0 60px rgba(212, 160, 160, 0.06);
   }
 
   .editorial-outline {
@@ -490,6 +495,11 @@ body {
     border: 1px solid rgba(245, 239, 231, 0.12);
     backdrop-filter: blur(12px);
     border-radius: 2px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .editorial-outline:hover {
+    box-shadow: 0 0 24px rgba(201, 184, 212, 0.12), 0 0 48px rgba(201, 184, 212, 0.05);
   }
 
   .glass-card {
@@ -497,6 +507,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(16px);
     border-radius: 2px;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    box-shadow: 0 0 30px rgba(168, 197, 176, 0.15), 0 0 60px rgba(168, 197, 176, 0.06);
   }
 
   .section-kicker {
