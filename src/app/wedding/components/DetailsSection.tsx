@@ -106,7 +106,8 @@ export default function DetailsSection() {
               <div
                 className="p-6 -m-2 rounded-sm"
                 style={{
-                  background: 'linear-gradient(180deg, rgba(201,184,212,0.07) 0%, transparent 100%)',
+                  background:
+                    'linear-gradient(180deg, rgba(201,184,212,0.07) 0%, transparent 100%)',
                 }}
               >
                 <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">Dress</p>
