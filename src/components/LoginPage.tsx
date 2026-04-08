@@ -176,9 +176,9 @@ export default function LoginPage() {
               <span className="section-kicker" style={{ color: '#D4A0A0' }}>
                 Private invitation
               </span>
-              <h1 className="mt-6 font-display text-5xl leading-[0.86] text-[#1d1819] md:text-6xl lg:text-7xl">
+              <h1 className="mt-6 font-display text-4xl leading-[0.86] text-[#1d1819] md:text-6xl lg:text-7xl">
                 Nikita
-                <span className="my-3 block font-script text-4xl text-shimmer md:text-5xl">
+                <span className="my-3 block font-script text-3xl text-shimmer md:text-5xl">
                   &amp;
                 </span>
                 Daniel
@@ -222,7 +222,7 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading || !code.trim()}
-                  className="btn-glow w-full rounded-sm px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
+                  className="btn-glow w-full rounded-sm px-6 py-4 min-h-[48px] text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
                   style={{
                     background:
                       'linear-gradient(135deg, rgba(212,160,160,0.95) 0%, rgba(180,120,128,0.98) 100%)',

@@ -158,7 +158,7 @@ export default function SplashAnimation() {
           <span className="block font-display text-4xl text-ivory-deep md:text-5xl lg:text-6xl">
             Liefde in
           </span>
-          <span className="mt-3 block font-script text-6xl text-shimmer md:text-7xl lg:text-8xl">
+          <span className="mt-3 block font-script text-5xl text-shimmer md:text-7xl lg:text-8xl">
             Swart en Wit
           </span>
         </div>

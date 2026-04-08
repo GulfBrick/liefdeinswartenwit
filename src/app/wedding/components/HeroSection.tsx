@@ -310,8 +310,8 @@ export default function HeroSection() {
           />
         ))}
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-32 md:pb-28 md:pt-44">
-        <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-24 md:pb-28 md:pt-44">
+        <div className="grid items-center gap-10 lg:gap-16 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left — headline */}
           <div>
             {guest && (
@@ -349,21 +349,21 @@ export default function HeroSection() {
             <h1 className="mt-7 font-display leading-[0.84] text-ivory-deep glow-heading">
               <span
                 ref={nikitaRef}
-                className="block text-6xl md:text-7xl lg:text-[7.5rem]"
+                className="block text-[2.75rem] md:text-7xl lg:text-[7.5rem]"
                 style={{ opacity: 0 }}
               >
                 Nikita
               </span>
               <span
                 ref={ampRef}
-                className="my-4 block font-script text-5xl text-shimmer md:text-6xl"
+                className="my-4 block font-script text-4xl text-shimmer md:text-6xl"
                 style={{ opacity: 0 }}
               >
                 &amp;
               </span>
               <span
                 ref={danielRef}
-                className="block text-6xl md:text-7xl lg:text-[7.5rem]"
+                className="block text-[2.75rem] md:text-7xl lg:text-[7.5rem]"
                 style={{ opacity: 0 }}
               >
                 Daniel
@@ -372,7 +372,7 @@ export default function HeroSection() {
 
             <p
               ref={taglineRef}
-              className="mt-8 max-w-2xl font-display text-2xl leading-tight text-ivory-deep/90 md:text-3xl"
+              className="mt-8 max-w-2xl font-display text-xl leading-tight text-ivory-deep/90 md:text-3xl"
               style={{ opacity: 0 }}
             >
               Swart gave the frame. She brought the colour.
@@ -394,7 +394,7 @@ export default function HeroSection() {
             >
               <a
                 href="#rsvp"
-                className="btn-glow inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep"
+                className="btn-glow inline-flex items-center justify-center rounded-sm px-8 py-4 min-h-[48px] text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep"
                 style={{
                   background:
                     'linear-gradient(135deg, rgba(212,160,160,0.9) 0%, rgba(180,120,128,0.95) 100%)',
@@ -418,7 +418,7 @@ export default function HeroSection() {
             <div className="max-w-[28rem] lg:ml-auto">
               {/* Main invitation card — glassmorphism */}
               <div
-                className="glass-panel p-8 md:p-10"
+                className="glass-panel p-6 md:p-10"
                 style={{
                   background: 'rgba(10,8,12,0.58)',
                   borderColor: 'rgba(212,160,160,0.18)',
@@ -441,7 +441,7 @@ export default function HeroSection() {
                         <p className="text-[0.72rem] uppercase tracking-[0.16em] text-bloom">
                           {item.label}
                         </p>
-                        <p className="max-w-[15rem] text-right font-display text-xl leading-snug text-ivory-deep">
+                        <p className="max-w-[12rem] sm:max-w-[15rem] text-right font-display text-xl leading-snug text-ivory-deep">
                           {item.value}
                         </p>
                       </div>
@@ -459,7 +459,7 @@ export default function HeroSection() {
 
               {/* Dress note card */}
               <div
-                className="editorial-outline ml-auto mt-4 max-w-[20rem] p-5"
+                className="editorial-outline mt-4 w-full sm:ml-auto sm:max-w-[20rem] p-5"
                 style={{
                   borderColor: 'rgba(201,184,212,0.2)',
                   background: 'rgba(15,13,20,0.7)',

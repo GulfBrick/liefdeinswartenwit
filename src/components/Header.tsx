@@ -72,7 +72,10 @@ export default function Header() {
   }, []);
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6">
+    <nav
+      className="fixed inset-x-0 top-0 z-50 px-4 py-4 md:px-6"
+      style={{ paddingTop: 'env(safe-area-inset-top, 16px)' }}
+    >
       <div
         className="mx-auto max-w-7xl rounded-sm border transition-all duration-500"
         style={{
@@ -151,7 +154,7 @@ export default function Header() {
 
             {/* Hamburger */}
             <button
-              className="flex flex-col gap-1.5 p-2 lg:hidden"
+              className="flex flex-col gap-1.5 p-2.5 lg:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
