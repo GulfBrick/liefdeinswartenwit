@@ -10,21 +10,129 @@ const galleryImages = [
   {
     src: '/assets/images/wedding/DSC08721.jpg',
     alt: 'Nikita and Daniel portrait',
-    span: 'col-span-2 row-span-2',
+    col: 'col-span-2',
+    row: 'row-span-2',
   },
-  { src: '/assets/images/wedding/DSC08661.jpg', alt: 'Nikita smiling with Daniel', span: '' },
   {
     src: '/assets/images/wedding/DSC_0174.jpeg',
     alt: 'Nikita and Daniel in an embrace',
-    span: 'row-span-2',
+    col: '',
+    row: 'row-span-2',
   },
-  { src: '/assets/images/wedding/DSC_0573.jpeg', alt: 'A romantic candid', span: '' },
+  {
+    src: '/assets/images/wedding/DSC08661.jpg',
+    alt: 'Nikita smiling with Daniel',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251110-WA0018.jpg',
+    alt: 'A candid moment',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/DSC_0573.jpeg',
+    alt: 'A romantic candid',
+    col: 'col-span-2',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251109-WA0068.jpg',
+    alt: 'Together',
+    col: '',
+    row: '',
+  },
   {
     src: '/assets/images/wedding/DSC_0657.jpeg',
     alt: 'Nikita and Daniel walking together',
-    span: 'col-span-2',
+    col: '',
+    row: 'row-span-2',
   },
-  { src: '/assets/images/wedding/DSC08489.jpg', alt: 'Nikita and Daniel at sunset', span: '' },
+  {
+    src: '/assets/images/wedding/IMG-20260322-WA0138.jpg',
+    alt: 'A recent moment',
+    col: 'col-span-2',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20241228-WA0009.jpg',
+    alt: 'December 2024',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20241228-WA0090.jpg',
+    alt: 'December celebration',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251109-WA0042.jpg',
+    alt: 'November 2025',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251109-WA0049.jpg',
+    alt: 'A tender moment',
+    col: 'col-span-2',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251110-WA0012.jpg',
+    alt: 'November evening',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251110-WA0013.jpg',
+    alt: 'Together in November',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20251110-WA0019.jpg',
+    alt: 'A quiet moment',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20260103-WA0158.jpg',
+    alt: 'New year together',
+    col: 'col-span-2',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/20241201_121835.jpg',
+    alt: 'December afternoon',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/20240713_165159(0).jpg',
+    alt: 'July 2024',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20240120-WA0062.jpg',
+    alt: 'January 2024',
+    col: '',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/IMG-20231204-WA0079.jpg',
+    alt: 'December 2023',
+    col: 'col-span-2',
+    row: '',
+  },
+  {
+    src: '/assets/images/wedding/DSC08489.jpg',
+    alt: 'Nikita and Daniel at sunset',
+    col: '',
+    row: '',
+  },
 ];
 
 export default function GalleryMoodSection() {
@@ -66,61 +174,97 @@ export default function GalleryMoodSection() {
         ref={sectionRef}
         className="relative overflow-hidden section-bg-dark-alt px-6 py-24 md:px-12"
       >
-        <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid items-start gap-12 lg:grid-cols-[0.64fr_1.36fr] lg:gap-16">
+        {/* Section ambient glow */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(ellipse at 50% 0%, rgba(212,160,160,0.07) 0%, transparent 50%)',
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-7xl">
+          {/* Header */}
+          <div className="mb-12 grid items-end gap-8 lg:grid-cols-[0.55fr_1.45fr]">
             <div className="reveal">
               <span className="section-kicker">Our story</span>
               <TextReveal
                 as="h2"
                 delay={120}
-                className="mt-5 text-5xl font-display leading-[0.9] text-ivory-deep md:text-6xl lg:text-7xl"
+                className="mt-5 font-display text-5xl leading-[0.9] text-ivory-deep md:text-6xl lg:text-7xl"
               >
                 How we arrived here
               </TextReveal>
-
-              <div className="mt-8 border-t border-white/10 pt-8">
-                <p className="text-xl leading-relaxed text-ivory-deep/92 md:text-2xl">
+            </div>
+            <div className="reveal reveal-delay-2">
+              <div className="border-t border-white/10 pt-6">
+                <p className="text-xl leading-relaxed text-ivory-deep/90 md:text-2xl">
                   Swart was the surname. Colour was the gift.
                 </p>
-                <p className="mt-6 text-lg leading-relaxed text-muted-light">
+                <p className="mt-4 text-lg leading-relaxed text-muted-light">
                   These are a few of the photographs we kept returning to while planning the day.
+                  Hover to see them in full colour.
                 </p>
               </div>
             </div>
+          </div>
 
-            <div className="reveal reveal-delay-2">
-              <div className="grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-3">
-                {galleryImages.map((image, index) => (
-                  <button
-                    key={image.src}
-                    type="button"
-                    onClick={() => setLightbox(index)}
-                    className={`${image.span} group relative overflow-hidden rounded-sm text-left`}
-                  >
-                    <AppImage
-                      src={image.src}
-                      alt={image.alt}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-                  </button>
-                ))}
-              </div>
+          {/* Masonry grid — grayscale by default, colour on hover */}
+          <div className="reveal reveal-delay-2">
+            <div className="grid auto-rows-[160px] grid-cols-3 gap-2 md:auto-rows-[190px] md:grid-cols-4 lg:auto-rows-[200px]">
+              {galleryImages.map((image, index) => (
+                <button
+                  key={image.src}
+                  type="button"
+                  onClick={() => setLightbox(index)}
+                  className={`${image.col} ${image.row} photo-mono-wrap group relative overflow-hidden rounded-sm text-left focus:outline-none`}
+                  style={{ display: 'block' }}
+                >
+                  {/* Rose tint overlay on hover */}
+                  <div
+                    className="absolute inset-0 z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{
+                      background:
+                        'linear-gradient(to top, rgba(212,160,160,0.28) 0%, transparent 60%)',
+                    }}
+                  />
+
+                  <AppImage
+                    src={image.src}
+                    alt={image.alt}
+                    className="photo-mono h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 768px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                  />
+
+                  {/* Caption on hover */}
+                  <div className="absolute inset-x-0 bottom-0 z-20 translate-y-2 p-3 opacity-0 transition-all duration-400 group-hover:translate-y-0 group-hover:opacity-100">
+                    <p className="text-[0.65rem] uppercase tracking-[0.16em] text-bloom/90">
+                      {image.alt}
+                    </p>
+                  </div>
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Lightbox */}
       {lightbox !== null && (
         <div
           className="fixed inset-0 z-[200] flex items-center justify-center px-6"
-          style={{ background: 'rgba(10, 10, 13, 0.94)' }}
+          style={{ background: 'rgba(8,8,11,0.96)' }}
           onClick={() => setLightbox(null)}
         >
+          {/* Counter */}
+          <div className="absolute left-6 top-6 text-[0.68rem] uppercase tracking-[0.2em] text-muted-light">
+            {lightbox + 1} / {galleryImages.length}
+          </div>
+
           <button
             onClick={() => setLightbox(null)}
-            className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full text-white/70 transition-colors hover:text-white"
-            style={{ background: 'rgba(245, 239, 231, 0.08)' }}
+            className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full text-white/60 transition-all hover:bg-white/10 hover:text-white"
             aria-label="Close gallery"
           >
             <svg
@@ -139,8 +283,8 @@ export default function GalleryMoodSection() {
               event.stopPropagation();
               previousImage();
             }}
-            className="absolute left-4 flex h-12 w-12 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white md:left-8"
-            style={{ background: 'rgba(245, 239, 231, 0.08)' }}
+            className="absolute left-4 flex h-12 w-12 items-center justify-center rounded-full text-white/40 transition-all hover:bg-white/08 hover:text-white md:left-8"
+            style={{ background: 'rgba(245,239,231,0.06)' }}
             aria-label="Previous image"
           >
             <svg
@@ -159,8 +303,8 @@ export default function GalleryMoodSection() {
               event.stopPropagation();
               nextImage();
             }}
-            className="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full text-white/50 transition-colors hover:text-white md:right-8"
-            style={{ background: 'rgba(245, 239, 231, 0.08)' }}
+            className="absolute right-4 flex h-12 w-12 items-center justify-center rounded-full text-white/40 transition-all hover:bg-white/08 hover:text-white md:right-8"
+            style={{ background: 'rgba(245,239,231,0.06)' }}
             aria-label="Next image"
           >
             <svg
@@ -174,15 +318,18 @@ export default function GalleryMoodSection() {
             </svg>
           </button>
 
-          <div className="max-h-[85vh] max-w-5xl" onClick={(event) => event.stopPropagation()}>
+          <div className="max-h-[88vh] max-w-5xl" onClick={(event) => event.stopPropagation()}>
             <AppImage
               src={galleryImages[lightbox].src}
               alt={galleryImages[lightbox].alt}
-              className="max-h-[85vh] max-w-full rounded-sm object-contain"
+              className="max-h-[88vh] max-w-full rounded-sm object-contain"
               width={1200}
-              height={800}
-              quality={90}
+              height={900}
+              quality={92}
             />
+            <p className="mt-4 text-center text-sm text-muted-light">
+              {galleryImages[lightbox].alt}
+            </p>
           </div>
         </div>
       )}

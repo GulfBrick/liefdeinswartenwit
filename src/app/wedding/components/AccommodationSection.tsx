@@ -12,6 +12,7 @@ interface AccommodationOption {
   priceSingle: string;
   roomCount: number;
   mood: string;
+  accent: string;
 }
 
 const accommodations: AccommodationOption[] = [
@@ -23,6 +24,7 @@ const accommodations: AccommodationOption[] = [
     priceSingle: 'R900 single',
     roomCount: 6,
     mood: 'Close to the celebration',
+    accent: '#D4A0A0',
   },
   {
     name: 'Unit Type B',
@@ -32,6 +34,7 @@ const accommodations: AccommodationOption[] = [
     priceSingle: 'R800 single',
     roomCount: 4,
     mood: 'Best value',
+    accent: '#A8C5B0',
   },
   {
     name: 'Guest House',
@@ -41,6 +44,7 @@ const accommodations: AccommodationOption[] = [
     priceSingle: 'R5500 whole house',
     roomCount: 4,
     mood: 'Best for groups',
+    accent: '#C9B8D4',
   },
   {
     name: 'Nyala Lodge',
@@ -50,6 +54,7 @@ const accommodations: AccommodationOption[] = [
     priceSingle: 'R900 single',
     roomCount: 7,
     mood: 'Peaceful retreat',
+    accent: '#A8C5B0',
   },
 ];
 
@@ -60,12 +65,21 @@ export default function AccommodationSection() {
     <section
       id="accommodation"
       ref={sectionRef}
-      className="relative overflow-hidden section-bg-dark px-6 py-[4.5rem] md:px-12"
+      className="relative overflow-hidden section-bg-dark px-6 py-20 md:px-12"
     >
+      {/* Ambient glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at 90% 30%, rgba(168,197,176,0.07) 0%, transparent 50%)',
+        }}
+      />
+
       <div className="relative z-10 mx-auto max-w-5xl">
         <div className="reveal">
           <span className="section-kicker">If you are staying over</span>
-          <h2 className="mt-5 text-4xl font-display leading-[0.94] text-ivory-deep md:text-5xl">
+          <h2 className="mt-5 font-display text-4xl leading-[0.94] text-ivory-deep md:text-5xl">
             Staying on the property
           </h2>
           <p className="mt-5 max-w-3xl text-lg leading-relaxed text-muted-light md:text-xl">
@@ -74,29 +88,42 @@ export default function AccommodationSection() {
           </p>
         </div>
 
-        <div className="mt-10 glass-card overflow-hidden reveal reveal-delay-1">
+        <div
+          className="mt-10 overflow-hidden rounded-sm reveal reveal-delay-1"
+          style={{
+            background: 'rgba(17,17,22,0.72)',
+            border: '1px solid rgba(255,255,255,0.07)',
+            backdropFilter: 'blur(20px)',
+          }}
+        >
           {accommodations.map((option, index) => (
             <div
               key={option.name}
-              className={`grid gap-6 px-6 py-7 md:grid-cols-[1.1fr_0.9fr] md:px-8 ${
-                index === 0 ? '' : 'border-t border-white/10'
-              }`}
+              className="group grid gap-6 px-6 py-7 transition-all duration-400 hover:bg-white/[0.025] md:grid-cols-[1.1fr_0.9fr] md:px-8"
+              style={{
+                borderTop: index === 0 ? 'none' : '1px solid rgba(255,255,255,0.07)',
+              }}
             >
               <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
+                <p
+                  className="text-[0.72rem] uppercase tracking-[0.18em] transition-colors duration-300"
+                  style={{ color: option.accent }}
+                >
                   {option.mood}
                 </p>
-                <h3 className="mt-3 text-3xl font-display text-ivory-deep">{option.name}</h3>
-                <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-light">
+                <h3 className="mt-3 font-display text-3xl text-ivory-deep transition-colors duration-300 group-hover:text-ivory-deep">
+                  {option.name}
+                </h3>
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-light">
                   {option.description}
                 </p>
-                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5">
                   {option.features.map((feature) => (
                     <li
                       key={feature}
-                      className="text-[0.98rem] leading-relaxed tracking-[0.02em] text-muted-light"
+                      className="text-sm leading-relaxed tracking-[0.02em] text-muted-light"
                     >
-                      {feature}
+                      · {feature}
                     </li>
                   ))}
                 </ul>
@@ -104,22 +131,33 @@ export default function AccommodationSection() {
 
               <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
+                  <p
+                    className="text-[0.68rem] uppercase tracking-[0.18em]"
+                    style={{ color: option.accent }}
+                  >
                     Sharing
                   </p>
-                  <p className="mt-2 text-2xl font-display text-ivory-deep">
+                  <p className="mt-2 font-display text-2xl text-ivory-deep">
                     {option.priceSharing}
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
+                  <p
+                    className="text-[0.68rem] uppercase tracking-[0.18em]"
+                    style={{ color: option.accent }}
+                  >
                     Single
                   </p>
-                  <p className="mt-2 text-2xl font-display text-ivory-deep">{option.priceSingle}</p>
+                  <p className="mt-2 font-display text-2xl text-ivory-deep">{option.priceSingle}</p>
                 </div>
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">Rooms</p>
-                  <p className="mt-2 text-2xl font-display text-ivory-deep">{option.roomCount}</p>
+                  <p
+                    className="text-[0.68rem] uppercase tracking-[0.18em]"
+                    style={{ color: option.accent }}
+                  >
+                    Rooms
+                  </p>
+                  <p className="mt-2 font-display text-2xl text-ivory-deep">{option.roomCount}</p>
                 </div>
               </div>
             </div>

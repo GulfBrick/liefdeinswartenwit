@@ -74,27 +74,50 @@ export default function ProgrammeSection() {
       ref={sectionRef}
       className="relative overflow-hidden section-bg-dark-alt px-6 py-24 md:px-12"
     >
+      {/* Ambient accent */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse at 10% 60%, rgba(201,184,212,0.07) 0%, transparent 50%)',
+        }}
+      />
+
       <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="grid gap-12 lg:grid-cols-[0.5fr_1.5fr] lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-[0.46fr_1.54fr] lg:gap-16">
+          {/* Left */}
           <div className="reveal">
             <span className="section-kicker">Programme</span>
-            <h2 className="mt-5 text-5xl font-display leading-[0.92] text-ivory-deep md:text-6xl lg:text-7xl">
+            <h2 className="mt-5 font-display text-5xl leading-[0.92] text-ivory-deep md:text-6xl lg:text-7xl">
               The rhythm
-              <span className="block italic text-shimmer">of the day</span>
+              <span className="mt-1 block italic text-shimmer">of the day</span>
             </h2>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-light md:text-xl">
               Enough structure to know where the day is going, while leaving room for the feeling of
               it.
             </p>
+
+            {/* Decorative bar */}
+            <div
+              className="mt-10 h-20 w-px"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(212,160,160,0.6), transparent)',
+              }}
+            />
           </div>
 
+          {/* Right — timeline */}
           <div className="reveal reveal-delay-1">
-            <div className="border-t border-white/10">
+            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
               {programme.map((entry, index) => {
                 if ('separator' in entry && entry.separator) {
                   return (
-                    <div key={`${entry.label}-${index}`} className="border-b border-white/10 py-4">
-                      <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[#D4A0A0]">
+                    <div
+                      key={`${entry.label}-${index}`}
+                      className="py-4"
+                      style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
+                    >
+                      <p className="text-[0.7rem] uppercase tracking-[0.24em] text-bloom">
                         {entry.label}
                       </p>
                     </div>
@@ -104,16 +127,20 @@ export default function ProgrammeSection() {
                 return (
                   <div
                     key={`${entry.time}-${entry.event}`}
-                    className="grid gap-4 border-b border-white/10 py-6 md:grid-cols-[96px_1fr]"
+                    className="group grid gap-4 py-6 transition-all duration-300 hover:pl-2 md:grid-cols-[96px_1fr]"
+                    style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
                   >
-                    <p className="text-3xl font-display leading-none text-ivory-deep tabular-nums">
+                    <p
+                      className="font-display text-3xl leading-none tabular-nums text-ivory-deep transition-colors duration-300 group-hover:text-bloom"
+                      style={{ opacity: 0.9 }}
+                    >
                       {entry.time}
                     </p>
                     <div>
-                      <h3 className="text-2xl font-display text-ivory-deep md:text-3xl">
+                      <h3 className="font-display text-2xl text-ivory-deep md:text-3xl">
                         {entry.event}
                       </h3>
-                      <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted-light">
+                      <p className="mt-2 max-w-2xl text-base leading-relaxed text-muted-light">
                         {entry.desc}
                       </p>
                     </div>
