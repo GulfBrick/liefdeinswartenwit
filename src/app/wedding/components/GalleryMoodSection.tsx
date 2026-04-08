@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import TextReveal from '@/components/effects/TextReveal';
 import AppImage from '@/components/ui/AppImage';
@@ -138,6 +138,8 @@ const galleryImages = [
 export default function GalleryMoodSection() {
   const sectionRef = useReveal();
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
 
   const previousImage = useCallback(() => {
     setLightbox((index) =>
@@ -166,6 +168,60 @@ export default function GalleryMoodSection() {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [lightbox, nextImage, previousImage]);
+
+  // Photo cascade animation on scroll
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const photos = Array.from(grid.querySelectorAll<HTMLElement>('[data-photo]'));
+
+    if (reduced) {
+      photos.forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    // Set initial hidden state
+    photos.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'scale(0.82) translateY(24px)';
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              animate(photos, {
+                opacity: [0, 1],
+                scale: [0.82, 1],
+                translateY: [24, 0],
+                duration: 700,
+                ease: 'outExpo',
+                // Waterfall: delay increases per photo (50ms × index)
+                delay: (_, i) => i * 50,
+              });
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.06 }
+    );
+
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -210,12 +266,13 @@ export default function GalleryMoodSection() {
           </div>
 
           {/* Masonry grid — grayscale by default, colour on hover */}
-          <div className="reveal reveal-delay-2">
+          <div ref={gridRef}>
             <div className="grid auto-rows-[160px] grid-cols-3 gap-2 md:auto-rows-[190px] md:grid-cols-4 lg:auto-rows-[200px]">
               {galleryImages.map((image, index) => (
                 <button
                   key={image.src}
                   type="button"
+                  data-photo
                   onClick={() => setLightbox(index)}
                   className={`${image.col} ${image.row} photo-mono-wrap group relative overflow-hidden rounded-sm text-left focus:outline-none`}
                   style={{ display: 'block' }}

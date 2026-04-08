@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import TextReveal from '@/components/effects/TextReveal';
 import AppImage from '@/components/ui/AppImage';
 import { useAuth } from '@/context/AuthContext';
 
@@ -82,11 +81,177 @@ const bokehDots = [
 
 export default function HeroSection() {
   const { guest } = useAuth();
-  const [loaded, setLoaded] = useState(false);
+  const [bokehVisible, setBokehVisible] = useState(false);
+
+  // Refs for cinematic timeline
+  const bgRef = useRef<HTMLDivElement>(null);
+  const kickerRef = useRef<HTMLDivElement>(null);
+  const nikitaRef = useRef<HTMLSpanElement>(null);
+  const ampRef = useRef<HTMLSpanElement>(null);
+  const danielRef = useRef<HTMLSpanElement>(null);
+  const taglineRef = useRef<HTMLParagraphElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setLoaded(true), 60);
-    return () => clearTimeout(t);
+    // Check reduced motion preference
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) {
+      // Instantly show everything
+      [
+        bgRef,
+        kickerRef,
+        nikitaRef,
+        ampRef,
+        danielRef,
+        taglineRef,
+        descRef,
+        cardRef,
+        ctaRef,
+      ].forEach((r) => {
+        if (r.current) {
+          r.current.style.opacity = '1';
+          r.current.style.transform = 'none';
+        }
+      });
+      setBokehVisible(true);
+      return;
+    }
+
+    // Set initial hidden states
+    const hiddenEls = [
+      bgRef.current,
+      kickerRef.current,
+      nikitaRef.current,
+      ampRef.current,
+      danielRef.current,
+      taglineRef.current,
+      descRef.current,
+      cardRef.current,
+      ctaRef.current,
+    ];
+
+    hiddenEls.forEach((el) => {
+      if (!el) return;
+      el.style.opacity = '0';
+    });
+
+    if (nikitaRef.current) {
+      nikitaRef.current.style.transform = 'translateY(40px) scale(0.92)';
+    }
+    if (danielRef.current) {
+      danielRef.current.style.transform = 'translateY(40px) scale(0.92)';
+    }
+    if (ampRef.current) {
+      ampRef.current.style.transform = 'scale(0.6)';
+    }
+    if (kickerRef.current) {
+      kickerRef.current.style.transform = 'translateX(-32px)';
+    }
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'translateY(56px)';
+    }
+    if (ctaRef.current) {
+      ctaRef.current.style.transform = 'translateY(24px)';
+    }
+    if (taglineRef.current) {
+      taglineRef.current.style.transform = 'translateY(20px)';
+    }
+    if (descRef.current) {
+      descRef.current.style.transform = 'translateY(16px)';
+    }
+
+    const run = async () => {
+      const { createTimeline } = await import('animejs');
+
+      const tl = createTimeline({
+        autoplay: true,
+        defaults: { ease: 'outExpo' },
+      });
+
+      // 1. Background fades in
+      if (bgRef.current) {
+        tl.add(bgRef.current, { opacity: [0, 1], duration: 1200 }, 0);
+      }
+
+      // 2. Kicker slides in from left
+      if (kickerRef.current) {
+        tl.add(kickerRef.current, { opacity: [0, 1], translateX: [-32, 0], duration: 700 }, 200);
+      }
+
+      // 3. "Nikita" scales and fades in
+      if (nikitaRef.current) {
+        tl.add(
+          nikitaRef.current,
+          {
+            opacity: [0, 1],
+            translateY: [40, 0],
+            scale: [0.92, 1],
+            duration: 900,
+          },
+          450
+        );
+      }
+
+      // 4. "&" fades in between names
+      if (ampRef.current) {
+        tl.add(
+          ampRef.current,
+          {
+            opacity: [0, 1],
+            scale: [0.6, 1],
+            duration: 600,
+          },
+          800
+        );
+      }
+
+      // 5. "Daniel" scales and fades in, staggered after Nikita
+      if (danielRef.current) {
+        tl.add(
+          danielRef.current,
+          {
+            opacity: [0, 1],
+            translateY: [40, 0],
+            scale: [0.92, 1],
+            duration: 900,
+          },
+          650
+        );
+      }
+
+      // 6. Tagline reveals
+      if (taglineRef.current) {
+        tl.add(taglineRef.current, { opacity: [0, 1], translateY: [20, 0], duration: 700 }, 1050);
+      }
+
+      // 7. Description paragraph
+      if (descRef.current) {
+        tl.add(descRef.current, { opacity: [0, 1], translateY: [16, 0], duration: 600 }, 1200);
+      }
+
+      // 8. CTA buttons fade in last
+      if (ctaRef.current) {
+        tl.add(ctaRef.current, { opacity: [0, 1], translateY: [24, 0], duration: 700 }, 1350);
+      }
+
+      // 9. Invitation card slides up from bottom
+      if (cardRef.current) {
+        tl.add(
+          cardRef.current,
+          { opacity: [0, 1], translateY: [56, 0], duration: 1000, ease: 'outExpo' },
+          600
+        );
+      }
+
+      // 10. After everything settles, start bokeh
+      setTimeout(() => setBokehVisible(true), 1800);
+    };
+
+    // Small delay to let splash finish
+    const timer = setTimeout(run, 80);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -95,7 +260,7 @@ export default function HeroSection() {
       className="relative flex min-h-screen items-center overflow-hidden section-bg-dark"
     >
       {/* Background image */}
-      <div className="absolute inset-0">
+      <div ref={bgRef} className="absolute inset-0" style={{ opacity: 0 }}>
         <AppImage
           src="/assets/images/wedding/DSC08489.jpg"
           alt="Nikita and Daniel at sunset"
@@ -125,71 +290,108 @@ export default function HeroSection() {
         <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-[#0a0a0d] to-transparent" />
       </div>
 
-      {/* Bokeh particles */}
-      {bokehDots.map((dot, i) => (
-        <div
-          key={i}
-          className="bokeh"
-          style={{
-            width: dot.size,
-            height: dot.size,
-            left: dot.left,
-            top: dot.top,
-            animationDelay: dot.delay,
-            animationDuration: dot.duration,
-            background: dot.color,
-            boxShadow: `0 0 ${dot.size * 3}px ${dot.color}`,
-            filter: `blur(${dot.size * 0.5}px)`,
-          }}
-        />
-      ))}
+      {/* Bokeh particles — only rendered once animation settles */}
+      {bokehVisible &&
+        bokehDots.map((dot, i) => (
+          <div
+            key={i}
+            className="bokeh"
+            style={{
+              width: dot.size,
+              height: dot.size,
+              left: dot.left,
+              top: dot.top,
+              animationDelay: dot.delay,
+              animationDuration: dot.duration,
+              background: dot.color,
+              boxShadow: `0 0 ${dot.size * 3}px ${dot.color}`,
+              filter: `blur(${dot.size * 0.5}px)`,
+            }}
+          />
+        ))}
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 pt-32 md:pb-28 md:pt-44">
         <div className="grid items-center gap-16 lg:grid-cols-[1.1fr_0.9fr]">
           {/* Left — headline */}
-          <div
-            className={`transition-all duration-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-          >
+          <div>
             {guest && (
-              <span
-                className="mb-8 inline-flex items-center rounded-sm px-4 py-2 text-[0.7rem] uppercase tracking-[0.18em] text-ivory-deep"
-                style={{
-                  background: 'rgba(212,160,160,0.08)',
-                  border: '1px solid rgba(212,160,160,0.2)',
-                }}
-              >
-                For {guest.name}
-              </span>
+              <div ref={kickerRef} style={{ opacity: 0 }}>
+                <span
+                  className="mb-8 inline-flex items-center rounded-sm px-4 py-2 text-[0.7rem] uppercase tracking-[0.18em] text-ivory-deep"
+                  style={{
+                    background: 'rgba(212,160,160,0.08)',
+                    border: '1px solid rgba(212,160,160,0.2)',
+                  }}
+                >
+                  For {guest.name}
+                </span>
+              </div>
             )}
 
-            <div className="flex flex-wrap items-center gap-4 text-[0.72rem] uppercase tracking-[0.2em] text-muted-light">
-              <span className="section-kicker">Private invitation</span>
-              <span className="h-px w-14 bg-white/10" />
-              <span>3 October 2026 · Rayton</span>
-            </div>
+            {!guest && (
+              <div ref={kickerRef} style={{ opacity: 0 }}>
+                <div className="flex flex-wrap items-center gap-4 text-[0.72rem] uppercase tracking-[0.2em] text-muted-light">
+                  <span className="section-kicker">Private invitation</span>
+                  <span className="h-px w-14 bg-white/10" />
+                  <span>3 October 2026 · Rayton</span>
+                </div>
+              </div>
+            )}
+
+            {guest && (
+              <div className="mb-4 flex flex-wrap items-center gap-4 text-[0.72rem] uppercase tracking-[0.2em] text-muted-light">
+                <span className="section-kicker">Private invitation</span>
+                <span className="h-px w-14 bg-white/10" />
+                <span>3 October 2026 · Rayton</span>
+              </div>
+            )}
 
             <h1 className="mt-7 font-display leading-[0.84] text-ivory-deep glow-heading">
-              <span className="block text-6xl md:text-7xl lg:text-[7.5rem]">Nikita</span>
-              <span className="my-4 block font-script text-5xl text-shimmer md:text-6xl">
+              <span
+                ref={nikitaRef}
+                className="block text-6xl md:text-7xl lg:text-[7.5rem]"
+                style={{ opacity: 0 }}
+              >
+                Nikita
+              </span>
+              <span
+                ref={ampRef}
+                className="my-4 block font-script text-5xl text-shimmer md:text-6xl"
+                style={{ opacity: 0 }}
+              >
                 &amp;
               </span>
-              <span className="block text-6xl md:text-7xl lg:text-[7.5rem]">Daniel</span>
+              <span
+                ref={danielRef}
+                className="block text-6xl md:text-7xl lg:text-[7.5rem]"
+                style={{ opacity: 0 }}
+              >
+                Daniel
+              </span>
             </h1>
 
-            <TextReveal
-              as="p"
-              delay={120}
+            <p
+              ref={taglineRef}
               className="mt-8 max-w-2xl font-display text-2xl leading-tight text-ivory-deep/90 md:text-3xl"
+              style={{ opacity: 0 }}
             >
               Swart gave the frame. She brought the colour.
-            </TextReveal>
+            </p>
 
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-light md:text-xl">
+            <p
+              ref={descRef}
+              className="mt-6 max-w-xl text-lg leading-relaxed text-muted-light md:text-xl"
+              style={{ opacity: 0 }}
+            >
               Join us for a ceremony at Featherwood Farm, dinner at one long table, and dancing well
               into the evening.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-6">
+            <div
+              ref={ctaRef}
+              className="mt-10 flex flex-wrap items-center gap-6"
+              style={{ opacity: 0 }}
+            >
               <a
                 href="#rsvp"
                 className="btn-glow inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep"
@@ -212,9 +414,7 @@ export default function HeroSection() {
           </div>
 
           {/* Right — glassmorphism invitation card */}
-          <div
-            className={`transition-all duration-1000 delay-200 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
-          >
+          <div ref={cardRef} style={{ opacity: 0 }}>
             <div className="max-w-[28rem] lg:ml-auto">
               {/* Main invitation card — glassmorphism */}
               <div

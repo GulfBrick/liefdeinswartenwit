@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import TextReveal from '@/components/effects/TextReveal';
 import { useReveal } from '@/hooks/useReveal';
@@ -34,6 +34,7 @@ const columns = [
     accent: '#D4A0A0',
     tint: 'rgba(212,160,160,0.09)',
     border: 'rgba(212,160,160,0.18)',
+    glowColor: 'rgba(212,160,160,0.18)',
     cta: {
       href: 'https://maps.google.com/?q=Featherwood+Farm+44+Nooitgedacht+Rd+Rayton',
       label: 'Open maps',
@@ -46,6 +47,7 @@ const columns = [
     accent: '#A8C5B0',
     tint: 'rgba(168,197,176,0.08)',
     border: 'rgba(168,197,176,0.16)',
+    glowColor: 'rgba(168,197,176,0.16)',
     cta: null,
   },
   {
@@ -55,6 +57,7 @@ const columns = [
     accent: '#C9B8D4',
     tint: 'rgba(201,184,212,0.08)',
     border: 'rgba(201,184,212,0.16)',
+    glowColor: 'rgba(201,184,212,0.18)',
     cta: null,
     note: {
       label: 'A gentle note',
@@ -65,6 +68,103 @@ const columns = [
 
 export default function DetailsSection() {
   const sectionRef = useReveal();
+  const col0Ref = useRef<HTMLDivElement>(null);
+  const col1Ref = useRef<HTMLDivElement>(null);
+  const col2Ref = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const colRefs = [col0Ref.current, col1Ref.current, col2Ref.current];
+
+    if (reduced) {
+      colRefs.forEach((el) => {
+        if (el) el.style.opacity = '1';
+      });
+      return;
+    }
+
+    // Set initial hidden state
+    colRefs.forEach((el) => {
+      if (!el) return;
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(72px) scale(0.96)';
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              colRefs.forEach((el, i) => {
+                if (!el) return;
+                animate(el, {
+                  opacity: [0, 1],
+                  translateY: [72, 0],
+                  scale: [0.96, 1],
+                  duration: 900,
+                  ease: 'outExpo',
+                  delay: i * 200,
+                });
+              });
+
+              // Stagger list items inside each column after cards land
+              colRefs.forEach((el, colIndex) => {
+                if (!el) return;
+                const items = Array.from(el.querySelectorAll<HTMLElement>('li'));
+                if (items.length === 0) return;
+                items.forEach((item) => {
+                  item.style.opacity = '0';
+                  item.style.transform = 'translateY(12px)';
+                });
+                animate(items, {
+                  opacity: [0, 1],
+                  translateY: [12, 0],
+                  duration: 500,
+                  ease: 'outQuart',
+                  delay: (_, i) => colIndex * 200 + 600 + i * 80,
+                });
+              });
+
+              // Brief glow pulse on each card after it lands
+              colRefs.forEach((el, i) => {
+                if (!el) return;
+                setTimeout(
+                  () => {
+                    el.style.transition = 'box-shadow 0.4s ease, border-color 0.4s ease';
+                    const col = columns[i];
+                    el.style.boxShadow = `0 0 48px ${col.glowColor}, 0 0 96px ${col.glowColor.replace('0.18', '0.08')}`;
+                    el.style.borderColor = col.accent + '55';
+                    setTimeout(() => {
+                      el.style.boxShadow = '';
+                      el.style.borderColor = '';
+                    }, 800);
+                  },
+                  800 + i * 200
+                );
+              });
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -108,70 +208,77 @@ export default function DetailsSection() {
           </div>
 
           {/* Right — three detail cards */}
-          <div className="reveal reveal-delay-1">
+          <div ref={containerRef} className="reveal reveal-delay-1">
             <div className="grid gap-5 lg:grid-cols-3">
-              {columns.map((col) => (
-                <div
-                  key={col.kicker}
-                  className="group relative overflow-hidden rounded-sm p-6 card-lift"
-                  style={{
-                    background: `linear-gradient(160deg, ${col.tint} 0%, rgba(17,15,22,0.6) 100%)`,
-                    border: `1px solid ${col.border}`,
-                    backdropFilter: 'blur(12px)',
-                  }}
-                >
-                  {/* Top glow on hover */}
+              {columns.map((col, index) => {
+                const colRef = [col0Ref, col1Ref, col2Ref][index];
+                return (
                   <div
-                    className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    key={col.kicker}
+                    ref={colRef}
+                    className="group relative overflow-hidden rounded-sm p-6 card-lift"
                     style={{
-                      background: `linear-gradient(90deg, transparent, ${col.accent}, transparent)`,
+                      background: `linear-gradient(160deg, ${col.tint} 0%, rgba(17,15,22,0.6) 100%)`,
+                      border: `1px solid ${col.border}`,
+                      backdropFilter: 'blur(12px)',
                     }}
-                  />
-
-                  <p
-                    className="text-[0.72rem] uppercase tracking-[0.18em]"
-                    style={{ color: col.accent }}
                   >
-                    {col.kicker}
-                  </p>
-                  <h3 className="mt-4 font-display text-2xl text-ivory-deep md:text-3xl">
-                    {col.title}
-                  </h3>
-                  <ul className="mt-5 space-y-2.5">
-                    {col.lines.map((line) => (
-                      <li key={line} className="text-base leading-relaxed text-muted-light">
-                        {line}
-                      </li>
-                    ))}
-                  </ul>
+                    {/* Top glow on hover */}
+                    <div
+                      className="pointer-events-none absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, ${col.accent}, transparent)`,
+                      }}
+                    />
 
-                  {col.cta && (
-                    <a
-                      href={col.cta.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-8 inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-muted-light transition-colors hover:text-ivory-deep"
+                    <p
+                      className="text-[0.72rem] uppercase tracking-[0.18em]"
+                      style={{ color: col.accent }}
                     >
-                      <span className="h-px w-8" style={{ background: col.accent, opacity: 0.6 }} />
-                      {col.cta.label}
-                    </a>
-                  )}
+                      {col.kicker}
+                    </p>
+                    <h3 className="mt-4 font-display text-2xl text-ivory-deep md:text-3xl">
+                      {col.title}
+                    </h3>
+                    <ul className="mt-5 space-y-2.5">
+                      {col.lines.map((line) => (
+                        <li key={line} className="text-base leading-relaxed text-muted-light">
+                          {line}
+                        </li>
+                      ))}
+                    </ul>
 
-                  {col.note && (
-                    <div className="mt-8 border-t pt-5" style={{ borderColor: `${col.border}` }}>
-                      <p
-                        className="text-[0.72rem] uppercase tracking-[0.18em]"
-                        style={{ color: col.accent }}
+                    {col.cta && (
+                      <a
+                        href={col.cta.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-8 inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-muted-light transition-colors hover:text-ivory-deep"
                       >
-                        {col.note.label}
-                      </p>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-light">
-                        {col.note.text}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
+                        <span
+                          className="h-px w-8"
+                          style={{ background: col.accent, opacity: 0.6 }}
+                        />
+                        {col.cta.label}
+                      </a>
+                    )}
+
+                    {col.note && (
+                      <div className="mt-8 border-t pt-5" style={{ borderColor: `${col.border}` }}>
+                        <p
+                          className="text-[0.72rem] uppercase tracking-[0.18em]"
+                          style={{ color: col.accent }}
+                        >
+                          {col.note.label}
+                        </p>
+                        <p className="mt-3 text-sm leading-relaxed text-muted-light">
+                          {col.note.text}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

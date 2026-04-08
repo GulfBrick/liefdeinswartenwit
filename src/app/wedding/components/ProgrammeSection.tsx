@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useReveal } from '@/hooks/useReveal';
 
@@ -67,6 +67,77 @@ const programme: ProgrammeEntry[] = [
 
 export default function ProgrammeSection() {
   const sectionRef = useReveal();
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const container = timelineRef.current;
+    if (!container) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const separators = Array.from(container.querySelectorAll<HTMLElement>('[data-separator]'));
+    const rows = Array.from(container.querySelectorAll<HTMLElement>('[data-row]'));
+
+    if (reduced) {
+      [...separators, ...rows].forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+      return;
+    }
+
+    // Set initial hidden state
+    separators.forEach((el) => {
+      el.style.opacity = '0';
+    });
+    rows.forEach((el, i) => {
+      el.style.opacity = '0';
+      // Alternate slide direction: odd from left, even from right
+      el.style.transform = i % 2 === 0 ? 'translateX(-56px)' : 'translateX(56px)';
+    });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !animated.current) {
+            animated.current = true;
+            observer.disconnect();
+
+            const run = async () => {
+              const { animate } = await import('animejs');
+
+              // Separators fade in with slight scale
+              animate(separators, {
+                opacity: [0, 1],
+                duration: 600,
+                ease: 'outQuart',
+                delay: (_, i) => i * 180,
+              });
+
+              // Rows slide in from alternating sides, staggered
+              rows.forEach((el, i) => {
+                const fromLeft = i % 2 === 0;
+                animate(el, {
+                  opacity: [0, 1],
+                  translateX: [fromLeft ? -56 : 56, 0],
+                  duration: 800,
+                  ease: 'outExpo',
+                  delay: 120 + i * 90,
+                });
+              });
+            };
+
+            run();
+          }
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -108,12 +179,13 @@ export default function ProgrammeSection() {
 
           {/* Right — timeline */}
           <div className="reveal reveal-delay-1">
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+            <div ref={timelineRef} style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
               {programme.map((entry, index) => {
                 if ('separator' in entry && entry.separator) {
                   return (
                     <div
                       key={`${entry.label}-${index}`}
+                      data-separator
                       className="py-4"
                       style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
                     >
@@ -127,6 +199,7 @@ export default function ProgrammeSection() {
                 return (
                   <div
                     key={`${entry.time}-${entry.event}`}
+                    data-row
                     className="group grid gap-4 py-6 transition-all duration-300 hover:pl-2 md:grid-cols-[96px_1fr]"
                     style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}
                   >
