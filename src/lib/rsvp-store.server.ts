@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { put, list } from '@vercel/blob';
+import { put, list, getDownloadUrl } from '@vercel/blob';
 
 export interface RSVPEntry {
   guestCode: string;
@@ -22,7 +22,7 @@ const BLOB_PREFIX = 'rsvps/';
 export async function saveRSVP(entry: RSVPEntry): Promise<void> {
   const filename = `${BLOB_PREFIX}${entry.guestCode}.json`;
   await put(filename, JSON.stringify(entry, null, 2), {
-    access: 'public',
+    access: 'private',
     addRandomSuffix: false,
     contentType: 'application/json',
   });
@@ -32,7 +32,8 @@ export async function getRSVP(guestCode: string): Promise<RSVPEntry | null> {
   try {
     const { blobs } = await list({ prefix: `${BLOB_PREFIX}${guestCode}.json` });
     if (blobs.length === 0) return null;
-    const response = await fetch(blobs[0].url);
+    const downloadUrl = await getDownloadUrl(blobs[0].url);
+    const response = await fetch(downloadUrl);
     if (!response.ok) return null;
     return (await response.json()) as RSVPEntry;
   } catch {
@@ -46,7 +47,8 @@ export async function getAllRSVPs(): Promise<RSVPEntry[]> {
     const entries: RSVPEntry[] = [];
     for (const blob of blobs) {
       try {
-        const response = await fetch(blob.url);
+        const downloadUrl = await getDownloadUrl(blob.url);
+        const response = await fetch(downloadUrl);
         if (response.ok) {
           entries.push((await response.json()) as RSVPEntry);
         }
