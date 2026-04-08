@@ -40,9 +40,10 @@ export async function POST(request: NextRequest) {
     await saveRSVP(entry);
     return NextResponse.json({ success: true, entry });
   } catch (error) {
-    console.error('Failed to save RSVP:', error);
+    const message = error instanceof Error ? error.message : String(error);
+    console.error('Failed to save RSVP:', message);
     return NextResponse.json(
-      { error: 'Failed to save your RSVP. Please try again.' },
+      { error: 'Failed to save your RSVP. Please try again.', detail: message },
       { status: 500 }
     );
   }
