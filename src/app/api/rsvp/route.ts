@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const blobResult = await saveRSVP(entry);
-    return NextResponse.json({ success: true, entry, blob: blobResult });
+    await saveRSVP(entry);
+    return NextResponse.json({ success: true, entry });
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error('Failed to save RSVP:', message);

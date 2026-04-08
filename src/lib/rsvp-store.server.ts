@@ -21,12 +21,12 @@ const BLOB_PREFIX = 'rsvps/';
 
 export async function saveRSVP(entry: RSVPEntry) {
   const filename = `${BLOB_PREFIX}${entry.guestCode}.json`;
-  const result = await put(filename, JSON.stringify(entry, null, 2), {
+  await put(filename, JSON.stringify(entry, null, 2), {
     access: 'private',
     addRandomSuffix: false,
+    allowOverwrite: true,
     contentType: 'application/json',
   });
-  return { url: result.url, pathname: result.pathname };
 }
 
 export async function getRSVP(guestCode: string): Promise<RSVPEntry | null> {
