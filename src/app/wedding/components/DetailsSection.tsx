@@ -189,7 +189,7 @@ export default function DetailsSection() {
             <TextReveal
               as="h2"
               delay={100}
-              className="mt-5 font-display text-5xl leading-[0.92] text-ivory-deep md:text-6xl lg:text-7xl"
+              className="mt-5 font-display text-4xl leading-[0.92] text-ivory-deep sm:text-5xl md:text-6xl lg:text-7xl"
             >
               The place, the time, and the shape of the evening
             </TextReveal>
@@ -253,7 +253,7 @@ export default function DetailsSection() {
                         href={col.cta.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-8 inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-muted-light transition-colors hover:text-ivory-deep"
+                        className="mt-8 min-h-[44px] inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-muted-light transition-colors hover:text-ivory-deep"
                       >
                         <span
                           className="h-px w-8"

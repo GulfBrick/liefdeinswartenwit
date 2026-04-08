@@ -87,6 +87,9 @@ export default function ProgrammeSection() {
       return;
     }
 
+    const slideDistance =
+      typeof window !== 'undefined' && window.innerWidth < 640 ? 32 : 56;
+
     // Set initial hidden state
     separators.forEach((el) => {
       el.style.opacity = '0';
@@ -94,7 +97,8 @@ export default function ProgrammeSection() {
     rows.forEach((el, i) => {
       el.style.opacity = '0';
       // Alternate slide direction: odd from left, even from right
-      el.style.transform = i % 2 === 0 ? 'translateX(-56px)' : 'translateX(56px)';
+      el.style.transform =
+        i % 2 === 0 ? `translateX(-${slideDistance}px)` : `translateX(${slideDistance}px)`;
     });
 
     const observer = new IntersectionObserver(
@@ -120,7 +124,7 @@ export default function ProgrammeSection() {
                 const fromLeft = i % 2 === 0;
                 animate(el, {
                   opacity: [0, 1],
-                  translateX: [fromLeft ? -56 : 56, 0],
+                  translateX: [fromLeft ? -slideDistance : slideDistance, 0],
                   duration: 800,
                   ease: 'outExpo',
                   delay: 120 + i * 90,
@@ -159,7 +163,7 @@ export default function ProgrammeSection() {
           {/* Left */}
           <div className="reveal">
             <span className="section-kicker">Programme</span>
-            <h2 className="mt-5 font-display text-5xl leading-[0.92] text-ivory-deep md:text-6xl lg:text-7xl">
+            <h2 className="mt-5 font-display text-4xl leading-[0.92] text-ivory-deep sm:text-5xl md:text-6xl lg:text-7xl">
               The rhythm
               <span className="mt-1 block italic text-shimmer">of the day</span>
             </h2>

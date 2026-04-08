@@ -202,7 +202,7 @@ export default function RSVPSection() {
             {/* Left info */}
             <div className="reveal">
               <span className="section-kicker">Reply</span>
-              <h2 className="mt-5 font-display text-5xl leading-[0.92] text-ivory-deep md:text-6xl lg:text-7xl">
+              <h2 className="mt-5 font-display text-4xl leading-[0.92] text-ivory-deep sm:text-5xl md:text-6xl lg:text-7xl">
                 Please reply
               </h2>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-light md:text-xl">
@@ -210,7 +210,7 @@ export default function RSVPSection() {
                 already prepared with the seats reserved for you.
               </p>
 
-              <div className="glass-card mt-8 p-6 md:p-7">
+              <div className="glass-card mt-8 p-5 md:p-7">
                 <p className="text-[0.72rem] uppercase tracking-[0.18em] text-bloom">
                   Prepared for
                 </p>
@@ -240,7 +240,7 @@ export default function RSVPSection() {
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
-                className="space-y-8 p-8 md:p-12"
+                className="space-y-8 p-5 sm:p-8 md:p-12"
               >
                 <input type="hidden" name="form-name" value="rsvp" />
                 <input type="hidden" name="guestCode" value={guest?.code || ''} />
@@ -501,7 +501,7 @@ export default function RSVPSection() {
                   <button
                     type="submit"
                     disabled={loading || !form.attending}
-                    className="btn-glow rsvp-submit-btn inline-flex items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
+                    className="btn-glow rsvp-submit-btn inline-flex w-full sm:w-auto items-center justify-center rounded-sm px-8 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
                     style={{
                       background:
                         'linear-gradient(135deg, rgba(212,160,160,0.9) 0%, rgba(180,120,128,0.95) 100%)',

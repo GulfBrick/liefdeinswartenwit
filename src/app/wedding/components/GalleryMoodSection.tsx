@@ -138,8 +138,14 @@ const galleryImages = [
 export default function GalleryMoodSection() {
   const sectionRef = useReveal();
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
   const animated = useRef(false);
+  const touchStartX = useRef<number | null>(null);
+
+  useEffect(() => {
+    setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+  }, []);
 
   const previousImage = useCallback(() => {
     setLightbox((index) =>
@@ -247,7 +253,7 @@ export default function GalleryMoodSection() {
               <TextReveal
                 as="h2"
                 delay={120}
-                className="mt-5 font-display text-5xl leading-[0.9] text-ivory-deep md:text-6xl lg:text-7xl"
+                className="mt-5 font-display text-4xl leading-[0.9] text-ivory-deep sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 How we arrived here
               </TextReveal>
@@ -259,7 +265,9 @@ export default function GalleryMoodSection() {
                 </p>
                 <p className="mt-4 text-lg leading-relaxed text-muted-light">
                   These are a few of the photographs we kept returning to while planning the day.
-                  Hover to see them in full colour.
+                  {isTouchDevice
+                    ? ' Tap to see them in full colour.'
+                    : ' Hover to see them in full colour.'}
                 </p>
               </div>
             </div>
@@ -267,7 +275,7 @@ export default function GalleryMoodSection() {
 
           {/* Masonry grid — grayscale by default, colour on hover */}
           <div ref={gridRef}>
-            <div className="grid auto-rows-[160px] grid-cols-3 gap-2 md:auto-rows-[190px] md:grid-cols-4 lg:auto-rows-[200px]">
+            <div className="grid auto-rows-[140px] grid-cols-2 gap-2 sm:auto-rows-[160px] md:auto-rows-[190px] md:grid-cols-3 lg:auto-rows-[200px] lg:grid-cols-4">
               {galleryImages.map((image, index) => (
                 <button
                   key={image.src}
@@ -291,7 +299,7 @@ export default function GalleryMoodSection() {
                     alt={image.alt}
                     className="photo-mono h-full w-full object-cover"
                     fill
-                    sizes="(max-width: 768px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1280px) 25vw, 20vw"
                   />
 
                   {/* Caption on hover */}
@@ -313,6 +321,18 @@ export default function GalleryMoodSection() {
           className="fixed inset-0 z-[200] flex items-center justify-center px-6"
           style={{ background: 'rgba(8,8,11,0.96)' }}
           onClick={() => setLightbox(null)}
+          onTouchStart={(e) => {
+            touchStartX.current = e.touches[0].clientX;
+          }}
+          onTouchEnd={(e) => {
+            if (touchStartX.current === null) return;
+            const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+            if (Math.abs(deltaX) > 50) {
+              if (deltaX > 0) previousImage();
+              else nextImage();
+            }
+            touchStartX.current = null;
+          }}
         >
           {/* Counter */}
           <div className="absolute left-6 top-6 text-[0.68rem] uppercase tracking-[0.2em] text-muted-light">
@@ -375,7 +395,7 @@ export default function GalleryMoodSection() {
             </svg>
           </button>
 
-          <div className="max-h-[88vh] max-w-5xl" onClick={(event) => event.stopPropagation()}>
+          <div className="max-h-[88vh] max-w-[calc(100vw-3rem)] md:max-w-5xl" onClick={(event) => event.stopPropagation()}>
             <AppImage
               src={galleryImages[lightbox].src}
               alt={galleryImages[lightbox].alt}

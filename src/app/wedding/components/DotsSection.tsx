@@ -122,7 +122,7 @@ export default function DotsSection() {
           >
             <p className="text-[0.72rem] uppercase tracking-[0.18em] text-bloom">Album code</p>
             <div className="mt-4 flex flex-wrap items-center gap-4">
-              <p className="font-display text-3xl tracking-[0.12em] text-ivory-deep md:text-4xl">
+              <p className="font-display text-2xl tracking-[0.12em] text-ivory-deep sm:text-3xl md:text-4xl">
                 {DOTS_CODE}
               </p>
               <button

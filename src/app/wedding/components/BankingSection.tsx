@@ -29,10 +29,13 @@ export default function BankingSection() {
       return;
     }
 
+    const slideDistance =
+      typeof window !== 'undefined' && window.innerWidth < 640 ? 40 : 72;
+
     left.style.opacity = '0';
-    left.style.transform = 'translateX(-72px)';
+    left.style.transform = `translateX(-${slideDistance}px)`;
     right.style.opacity = '0';
-    right.style.transform = 'translateX(72px)';
+    right.style.transform = `translateX(${slideDistance}px)`;
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -47,14 +50,14 @@ export default function BankingSection() {
               // Both cards meet in the middle simultaneously
               animate(left, {
                 opacity: [0, 1],
-                translateX: [-72, 0],
+                translateX: [-slideDistance, 0],
                 duration: 1000,
                 ease: 'outExpo',
               });
 
               animate(right, {
                 opacity: [0, 1],
-                translateX: [72, 0],
+                translateX: [slideDistance, 0],
                 duration: 1000,
                 ease: 'outExpo',
               });
@@ -137,10 +140,10 @@ export default function BankingSection() {
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
               {bankRows.map(({ label, value, highlight }) => (
-                <div key={label} data-bank-row className="flex items-center justify-between gap-4">
-                  <span className="text-sm text-muted">{label}</span>
+                <div key={label} data-bank-row className="flex items-center justify-between gap-2 sm:gap-4">
+                  <span className="shrink-0 text-sm text-muted">{label}</span>
                   <span
-                    className="font-display text-base"
+                    className="min-w-0 truncate text-right font-display text-base"
                     style={{ color: highlight ? '#D4A0A0' : '#F5EFE7' }}
                   >
                     {value}
@@ -171,10 +174,10 @@ export default function BankingSection() {
               style={{ borderColor: 'rgba(255,255,255,0.08)' }}
             >
               {bankRows.map(({ label, value, highlight }) => (
-                <div key={label} data-bank-row className="flex items-center justify-between gap-4">
-                  <span className="text-sm text-muted">{label}</span>
+                <div key={label} data-bank-row className="flex items-center justify-between gap-2 sm:gap-4">
+                  <span className="shrink-0 text-sm text-muted">{label}</span>
                   <span
-                    className="font-display text-base"
+                    className="min-w-0 truncate text-right font-display text-base"
                     style={{ color: highlight ? '#C9B8D4' : '#F5EFE7' }}
                   >
                     {value}
