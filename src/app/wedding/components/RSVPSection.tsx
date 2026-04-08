@@ -144,25 +144,21 @@ export default function RSVPSection() {
     setSubmitError('');
 
     try {
-      const formData = new URLSearchParams();
       const payload = {
         ...form,
         guestCount: form.attending === 'yes' ? form.guestCount : '0',
-        guestCode: guest?.code || '',
       };
 
-      formData.append('form-name', 'rsvp');
-      Object.entries(payload).forEach(([key, value]) => {
-        formData.append(key, value);
-      });
-
-      const response = await fetch('/', {
+      const response = await fetch('/api/rsvp', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      if (!response.ok) {
+        const data = await response.json().catch(() => null);
+        throw new Error(data?.error || 'Submission failed');
+      }
       setSubmitted(true);
     } catch {
       setSubmitError('We could not send your reply just now. Please try again in a moment.');
