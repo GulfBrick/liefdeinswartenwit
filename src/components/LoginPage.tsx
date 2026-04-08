@@ -14,13 +14,15 @@ export default function LoginPage() {
   const [loaded, setLoaded] = useState(false);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const glareRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(timer);
   }, []);
 
-  // Subtle parallax on mouse move for background blobs
+  // Subtle parallax on mouse move for background blobs + card glare
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       const x = e.clientX / window.innerWidth;
@@ -30,6 +32,19 @@ export default function LoginPage() {
       }
       if (blob2Ref.current) {
         blob2Ref.current.style.transform = `translate(${-x * 25}px, ${-y * 18}px)`;
+      }
+      // Pastel glare follows cursor over the card
+      if (glareRef.current && cardRef.current) {
+        const rect = cardRef.current.getBoundingClientRect();
+        const cx = e.clientX - rect.left;
+        const cy = e.clientY - rect.top;
+        const inside = cx >= 0 && cy >= 0 && cx <= rect.width && cy <= rect.height;
+        if (inside) {
+          glareRef.current.style.opacity = '1';
+          glareRef.current.style.background = `radial-gradient(600px circle at ${cx}px ${cy}px, rgba(212,160,160,0.12) 0%, rgba(168,197,176,0.08) 30%, rgba(201,184,212,0.06) 50%, transparent 70%)`;
+        } else {
+          glareRef.current.style.opacity = '0';
+        }
       }
     };
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -90,7 +105,8 @@ export default function LoginPage() {
 
       <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-12">
         <div
-          className={`w-full max-w-6xl overflow-hidden rounded-sm border transition-all duration-1000 ${
+          ref={cardRef}
+          className={`relative w-full max-w-6xl overflow-hidden rounded-sm border transition-all duration-1000 ${
             loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
           style={{
@@ -100,6 +116,12 @@ export default function LoginPage() {
             boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 80px rgba(212,160,160,0.06)',
           }}
         >
+          {/* Pastel glare overlay — follows mouse */}
+          <div
+            ref={glareRef}
+            className="pointer-events-none absolute inset-0 z-20 transition-opacity duration-500"
+            style={{ opacity: 0 }}
+          />
           <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
             {/* Photo side */}
             <div className="relative min-h-[320px] lg:min-h-[780px]">
@@ -163,7 +185,7 @@ export default function LoginPage() {
               </h1>
 
               <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#4A4040] md:text-2xl">
-                Enter the code printed on your invitation card to open your page.
+                Enter your personal invitation code to open your page.
               </p>
 
               <p className="mt-5 border-t border-black/10 pt-5 text-[0.78rem] uppercase tracking-[0.18em] text-[#8A7F7F]">
@@ -211,7 +233,7 @@ export default function LoginPage() {
                 </button>
 
                 <p className="text-sm leading-relaxed text-[#8A7F7F]">
-                  The code is printed on your card.
+                  Your code was sent with your invitation.
                 </p>
               </form>
             </div>
