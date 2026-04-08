@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Send Wedding Invitations — Nikita & Daniel</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=DM+Sans:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0f;
+    color: #f5efe7;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+
+  .container { max-width: 800px; margin: 0 auto; }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #D4A0A0;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+  }
+
+  .stats {
+    text-align: center;
+    color: #8a7f7f;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(212,160,160,0.15);
+  }
+
+  .stats span { color: #D4A0A0; font-weight: 600; }
+
+  .search {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(212,160,160,0.2);
+    border-radius: 2px;
+    color: #f5efe7;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .search:focus {
+    border-color: #D4A0A0;
+    box-shadow: 0 0 0 3px rgba(212,160,160,0.12);
+  }
+
+  .search::placeholder { color: rgba(255,255,255,0.3); }
+
+  .guest-list { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .guest-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(17,17,22,0.82);
+    border: 1px solid rgba(212,160,160,0.1);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .guest-card:hover {
+    border-color: rgba(212,160,160,0.25);
+    box-shadow: 0 0 30px rgba(212,160,160,0.08);
+    transform: translateY(-1px);
+  }
+
+  .guest-card.sent {
+    border-color: rgba(168,197,176,0.3);
+    background: rgba(168,197,176,0.05);
+  }
+
+  .guest-info { flex: 1; min-width: 0; }
+
+  .guest-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .guest-code {
+    font-size: 0.75rem;
+    color: #8a7f7f;
+    letter-spacing: 0.08em;
+    font-family: monospace;
+  }
+
+  .guest-plus {
+    display: inline-block;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #A8C5B0;
+    background: rgba(168,197,176,0.12);
+    padding: 0.15rem 0.5rem;
+    border-radius: 2px;
+    margin-left: 0.5rem;
+  }
+
+  .btn-send {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.4rem;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .btn-send:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37,211,102,0.3);
+  }
+
+  .btn-sent {
+    background: linear-gradient(135deg, #A8C5B0 0%, #8FB5A0 100%);
+    opacity: 0.7;
+  }
+
+  .btn-copy {
+    padding: 0.7rem 1rem;
+    background: rgba(212,160,160,0.12);
+    color: #D4A0A0;
+    border: 1px solid rgba(212,160,160,0.2);
+    border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .btn-copy:hover {
+    background: rgba(212,160,160,0.2);
+    border-color: #D4A0A0;
+  }
+
+  .actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+
+  .sent-badge {
+    font-size: 0.7rem;
+    color: #A8C5B0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(168,197,176,0.95);
+    color: #0a0a0f;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: transform 0.3s ease;
+    z-index: 100;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 600px) {
+    .guest-card { flex-direction: column; align-items: stretch; }
+    .actions { justify-content: stretch; }
+    .btn-send, .btn-copy { flex: 1; justify-content: center; }
+    h1 { font-size: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <p class="subtitle">Wedding Invitation Sender</p>
+  <h1>Nikita & Daniel</h1>
+  <div class="stats">
+    <span id="totalGuests">0</span> guests · <span id="sentCount">0</span> sent
+  </div>
+
+  <input type="text" class="search" id="search" placeholder="Search guests...">
+
+  <div class="guest-list" id="guestList"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SITE_URL = 'https://liefdeinswartenwit.vercel.app/wedding';
+
+const guests = [
+  { name: 'Nikita', code: 'NIKDAN-NIKIT-A2B3', plus: false },
+  { name: 'Daniel', code: 'NIKDAN-DANIE-C4D5', plus: false },
+  { name: 'Pa PW', code: 'NIKDAN-PAPWW-E6F7', plus: false },
+  { name: 'Ma Lurette', code: 'NIKDAN-MALUR-J2K3', plus: false },
+  { name: 'Giovan', code: 'NIKDAN-GIOVA-N6P7', plus: false },
+  { name: 'Gherhard', code: 'NIKDAN-GHERH-S2T3', plus: false },
+  { name: 'Luan', code: 'NIKDAN-LUANS-W6X7', plus: false },
+  { name: 'Amber', code: 'NIKDAN-AMBER-A3B4', plus: false },
+  { name: 'Rikus', code: 'NIKDAN-RIKUS-E7F8', plus: false },
+  { name: 'Sune', code: 'NIKDAN-SUNEP-J3K4', plus: true },
+  { name: 'Rianca', code: 'NIKDAN-RIANB-L5M6', plus: false },
+  { name: 'Brandon', code: 'NIKDAN-BRAND-Q9R2', plus: false },
+  { name: 'Megan', code: 'NIKDAN-MEGAN-U5V6', plus: false },
+  { name: 'Elke', code: 'NIKDAN-ELKES-Y9Z2', plus: false },
+  { name: 'Tani Melanie', code: 'NIKDAN-TMELA-C6D7', plus: false },
+  { name: 'Tani Sandra', code: 'NIKDAN-TSAND-G2H3', plus: false },
+  { name: 'Tani Rianca', code: 'NIKDAN-TRIAN-J4K5', plus: false },
+  { name: 'Oom Frikkie', code: 'NIKDAN-OFRIK-N8P9', plus: false },
+  { name: 'Oom Heinz', code: 'NIKDAN-OHEIN-S4T5', plus: false },
+  { name: 'Ouma Lidia', code: 'NIKDAN-OLIDI-W8X9', plus: false },
+  { name: 'Alani', code: 'NIKDAN-ALANI-A5B6', plus: false },
+  { name: 'Lalique', code: 'NIKDAN-LALIQ-E9F2', plus: false },
+  { name: 'Corika', code: 'NIKDAN-CORIK-J5K6', plus: false },
+  { name: 'Schalk', code: 'NIKDAN-SCHAL-N9P2', plus: false },
+  { name: 'Frederik', code: 'NIKDAN-FREDR-Q3R4', plus: false },
+  { name: 'Lara Hirsch', code: 'NIKDAN-LARAH-S5T6', plus: true },
+  { name: 'Mondrey', code: 'NIKDAN-MONDE-W9X2', plus: false },
+  { name: 'Chene', code: 'NIKDAN-CHENE-A6B7', plus: false },
+  { name: 'Pa Phillip', code: 'NIKDAN-PAPHI-G8H9', plus: false },
+  { name: 'Ma Chari', code: 'NIKDAN-MACHA-L4M5', plus: false },
+  { name: 'Josh', code: 'NIKDAN-JOSHU-Q8R9', plus: false },
+  { name: 'Shannon', code: 'NIKDAN-SHANN-U4V5', plus: false },
+  { name: 'Leo', code: 'NIKDAN-LEOVD-Y8Z9', plus: false },
+  { name: 'Chrystal', code: 'NIKDAN-CHRYS-C5D6', plus: false },
+  { name: 'Frans', code: 'NIKDAN-FRANS-G9H2', plus: false },
+  { name: 'Oom Benny', code: 'NIKDAN-OBENN-N7P8', plus: true },
+  { name: 'Oom Bozz', code: 'NIKDAN-OBOZZ-S3T4', plus: false },
+  { name: 'Tani Liezel', code: 'NIKDAN-TLIES-W7X8', plus: false },
+  { name: 'Lillie', code: 'NIKDAN-LILLI-A4B5', plus: true },
+  { name: 'Zellie', code: 'NIKDAN-ZELLI-E8F9', plus: true },
+  { name: 'Danie', code: 'NIKDAN-DANIV-L6M7', plus: false },
+  { name: 'Tani Amanda', code: 'NIKDAN-TAMAN-Q2R3', plus: false },
+  { name: 'Oom Thunus', code: 'NIKDAN-OTHUN-U6V7', plus: false },
+  { name: 'Tani Alisma', code: 'NIKDAN-TALIS-Y2Z3', plus: false },
+  { name: 'Angie', code: 'NIKDAN-ANGIE-C7D8', plus: false },
+  { name: 'Alban', code: 'NIKDAN-ALBAN-G3H4', plus: false },
+  { name: 'Ouma Rona', code: 'NIKDAN-ORONA-L7M8', plus: false },
+  { name: 'Marjone', code: 'NIKDAN-MARJO-U7V8', plus: false },
+  { name: 'Gerhard', code: 'NIKDAN-GERHA-Y3Z4', plus: false },
+];
+
+// Track sent status in localStorage
+const sentKey = 'nikdan-invites-sent';
+function getSent() { return JSON.parse(localStorage.getItem(sentKey) || '{}'); }
+function markSent(code) { const s = getSent(); s[code] = Date.now(); localStorage.setItem(sentKey, JSON.stringify(s)); }
+
+function buildMessage(guest) {
+  const firstName = guest.name.split(' ')[0];
+  const plusLine = guest.plus ? '\nYou are welcome to bring a plus-one.' : '';
+  return `Dear ${guest.name},
+
+You are warmly invited to celebrate the wedding of *Nikita & Daniel*
+
+Saturday, 3 October 2026
+Featherwood Farm, Rayton
+Ceremony at 16:00 · Dinner and dancing to follow
+
+Open your personal invitation here:
+${SITE_URL}
+
+Your private code:
+*${guest.code}*${plusLine}
+
+Please RSVP by Friday, 14 August 2026.
+
+With love,
+Nikita & Daniel`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function updateStats() {
+  const sent = getSent();
+  document.getElementById('totalGuests').textContent = guests.length;
+  document.getElementById('sentCount').textContent = Object.keys(sent).length;
+}
+
+function render(filter = '') {
+  const list = document.getElementById('guestList');
+  const sent = getSent();
+  const q = filter.toLowerCase();
+  const filtered = guests.filter(g => g.name.toLowerCase().includes(q) || g.code.toLowerCase().includes(q));
+
+  list.innerHTML = filtered.map(g => {
+    const isSent = !!sent[g.code];
+    const msg = encodeURIComponent(buildMessage(g));
+    const waLink = `https://wa.me/?text=${msg}`;
+
+    return `
+      <div class="guest-card ${isSent ? 'sent' : ''}">
+        <div class="guest-info">
+          <div class="guest-name">
+            ${g.name}
+            ${g.plus ? '<span class="guest-plus">+1</span>' : ''}
+            ${isSent ? '<span class="sent-badge" style="margin-left:0.5rem">Sent</span>' : ''}
+          </div>
+          <div class="guest-code">${g.code}</div>
+        </div>
+        <div class="actions">
+          <button class="btn-copy" onclick="copyMsg('${g.code}')">Copy</button>
+          <a href="${waLink}" target="_blank" class="btn-send ${isSent ? 'btn-sent' : ''}" onclick="onSend('${g.code}')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.952 11.952 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.387 0-4.594-.838-6.32-2.234l-.108-.09-3.346 1.122 1.122-3.346-.09-.108A9.96 9.96 0 012 12C2 6.486 6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  updateStats();
+}
+
+function copyMsg(code) {
+  const guest = guests.find(g => g.code === code);
+  if (!guest) return;
+  navigator.clipboard.writeText(buildMessage(guest)).then(() => showToast('Message copied!'));
+}
+
+function onSend(code) {
+  markSent(code);
+  setTimeout(() => render(document.getElementById('search').value), 500);
+}
+
+document.getElementById('search').addEventListener('input', e => render(e.target.value));
+render();
+</script>
+</body>
+</html>
