@@ -42,7 +42,7 @@ export default function LoginPage() {
         <div
           className="absolute bottom-0 right-0 h-[22rem] w-[22rem] rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(183, 146, 81, 0.1), transparent 68%)',
+            background: 'radial-gradient(circle, rgba(168, 197, 176, 0.1), transparent 68%)',
           }}
         />
       </div>
@@ -79,7 +79,7 @@ export default function LoginPage() {
               <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#08080b] to-transparent lg:hidden" />
 
               <div className="absolute bottom-8 left-8 right-8 lg:bottom-10 lg:left-10 lg:right-10 editorial-outline p-6 md:p-7">
-                <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#c7ab78]">
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#C9B8D4]">
                   3 October 2026 · Rayton
                 </p>
                 <p className="mt-3 text-3xl font-display text-ivory-deep md:text-4xl">
@@ -108,17 +108,17 @@ export default function LoginPage() {
                 Daniel
               </h1>
 
-              <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#3f3832] md:text-2xl">
+              <p className="mt-6 max-w-xl text-xl leading-relaxed text-[#4A4040] md:text-2xl">
                 Enter the code printed on your invitation card to open your page.
               </p>
 
-              <p className="mt-5 border-t border-black/10 pt-5 text-[0.78rem] uppercase tracking-[0.18em] text-[#7c6659]">
+              <p className="mt-5 border-t border-black/10 pt-5 text-[0.78rem] uppercase tracking-[0.18em] text-[#8A7F7F]">
                 Featherwood Farm · 3 October 2026 · By invitation only
               </p>
 
               <form onSubmit={handleSubmit} className="mt-10 max-w-md space-y-5">
                 <div>
-                  <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.18em] text-[#7c6659]">
+                  <label className="mb-2 block text-[0.72rem] uppercase tracking-[0.18em] text-[#8A7F7F]">
                     Invitation code
                   </label>
                   <input
@@ -156,7 +156,7 @@ export default function LoginPage() {
                   {isLoading ? 'Verifying invitation' : 'Open invitation'}
                 </button>
 
-                <p className="text-sm leading-relaxed text-[#6f5f54]">
+                <p className="text-sm leading-relaxed text-[#8A7F7F]">
                   The code is printed on your card.
                 </p>
               </form>

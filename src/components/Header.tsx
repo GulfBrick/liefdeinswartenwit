@@ -51,7 +51,7 @@ export default function Header() {
             </span>
 
             <div className="min-w-0">
-              <p className="truncate text-[0.68rem] uppercase tracking-[0.22em] text-[#c7ab78]">
+              <p className="truncate text-[0.68rem] uppercase tracking-[0.22em] text-[#D4A0A0]">
                 By invitation only
               </p>
               <p className="truncate text-lg font-display text-ivory-deep">Nikita &amp; Daniel</p>
@@ -135,7 +135,7 @@ export default function Header() {
           >
             {guest && (
               <div className="mb-6 border-b border-white/10 pb-5">
-                <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[#c7ab78]">
+                <p className="text-[0.68rem] uppercase tracking-[0.2em] text-[#D4A0A0]">
                   Invitation for
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-4">
