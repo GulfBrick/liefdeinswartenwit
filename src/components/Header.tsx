@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -21,10 +21,54 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const logoRef = useRef<HTMLAnchorElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
+  const animated = useRef(false);
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Logo subtle scale on scroll
+  useEffect(() => {
+    const logo = logoRef.current;
+    if (!logo) return;
+    logo.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+    logo.style.transform = scrolled ? 'scale(0.9)' : 'scale(1)';
+  }, [scrolled]);
+
+  // Nav items fade in with stagger on page load
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav || animated.current) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const links = Array.from(nav.querySelectorAll<HTMLElement>('a'));
+
+    if (reduced || links.length === 0) return;
+
+    links.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-8px)';
+    });
+
+    const run = async () => {
+      animated.current = true;
+      const { animate } = await import('animejs');
+      animate(links, {
+        opacity: [0, 1],
+        translateY: [-8, 0],
+        duration: 600,
+        ease: 'outExpo',
+        delay: (_, i) => 400 + i * 80,
+      });
+    };
+
+    // Small delay to let page settle after splash
+    const timer = setTimeout(run, 200);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -41,8 +85,8 @@ export default function Header() {
         }}
       >
         <div className="flex items-center justify-between gap-5 px-4 py-3 md:px-6">
-          {/* Logo */}
-          <a href="#hero" className="flex min-w-0 items-center gap-4">
+          {/* Logo — subtly scales down when scrolled */}
+          <a ref={logoRef} href="#hero" className="flex min-w-0 items-center gap-4">
             <span
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border font-display text-sm text-ivory-deep transition-all duration-300"
               style={{
@@ -62,8 +106,8 @@ export default function Header() {
             </div>
           </a>
 
-          {/* Desktop nav */}
-          <div className="hidden items-center gap-6 xl:flex">
+          {/* Desktop nav — stagger animated on load */}
+          <div ref={navRef} className="hidden items-center gap-6 xl:flex">
             {primaryLinks.map((link) => (
               <a
                 key={link.href}
