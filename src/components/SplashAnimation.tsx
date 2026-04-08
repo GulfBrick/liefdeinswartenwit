@@ -1,29 +1,92 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
 
 export default function SplashAnimation() {
   const { guest, showSplash, setShowSplash } = useAuth();
-  const [stage, setStage] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const kickerRef = useRef<HTMLParagraphElement>(null);
+  const titleRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const ring1Ref = useRef<HTMLDivElement>(null);
+  const ring2Ref = useRef<HTMLDivElement>(null);
+  const ring3Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!showSplash) return;
 
-    const t1 = setTimeout(() => setStage(1), 80);
-    const t2 = setTimeout(() => setStage(2), 420);
-    const t3 = setTimeout(() => setStage(3), 980);
-    const t4 = setTimeout(() => {
-      setShowSplash(false);
-      setStage(0);
-    }, 2500);
+    let dismissTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const run = async () => {
+      const { createTimeline } = await import('animejs');
+
+      if (!containerRef.current) return;
+
+      // Set initial states via inline style — anime will animate from here
+      [ring1Ref.current, ring2Ref.current, ring3Ref.current].forEach((ring) => {
+        if (!ring) return;
+        ring.style.opacity = '0';
+        ring.style.transform = 'translate(-50%, -50%) scale(0.4)';
+      });
+
+      [kickerRef.current, titleRef.current, lineRef.current].forEach((el) => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(24px)';
+      });
+
+      // Build timeline
+      const tl = createTimeline({ autoplay: true, defaults: { ease: 'outExpo' } });
+
+      if (ring1Ref.current) {
+        tl.add(ring1Ref.current, { opacity: [0, 0.35], scale: [0.4, 1], duration: 900 }, 0);
+      }
+      if (ring2Ref.current) {
+        tl.add(ring2Ref.current, { opacity: [0, 0.25], scale: [0.4, 1], duration: 1000 }, 120);
+      }
+      if (ring3Ref.current) {
+        tl.add(ring3Ref.current, { opacity: [0, 0.15], scale: [0.4, 1], duration: 1100 }, 240);
+      }
+      if (kickerRef.current) {
+        tl.add(
+          kickerRef.current,
+          { opacity: [0, 1], translateY: [24, 0], duration: 700, ease: 'outQuart' },
+          200
+        );
+      }
+      if (titleRef.current) {
+        tl.add(
+          titleRef.current,
+          { opacity: [0, 1], translateY: [32, 0], duration: 800, ease: 'outQuart' },
+          420
+        );
+      }
+      if (lineRef.current) {
+        tl.add(
+          lineRef.current,
+          { opacity: [0, 1], translateY: [16, 0], duration: 600, ease: 'outQuart' },
+          780
+        );
+      }
+
+      // Dismiss after 2800ms with fade-out
+      dismissTimer = setTimeout(() => {
+        if (containerRef.current) {
+          containerRef.current.style.transition = 'opacity 0.5s ease';
+          containerRef.current.style.opacity = '0';
+        }
+        setTimeout(() => {
+          setShowSplash(false);
+        }, 500);
+      }, 2800);
+    };
+
+    run();
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
+      if (dismissTimer) clearTimeout(dismissTimer);
     };
   }, [showSplash, setShowSplash]);
 
@@ -31,48 +94,86 @@ export default function SplashAnimation() {
 
   return (
     <div
+      ref={containerRef}
       className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
       style={{ background: '#0A0A0D' }}
     >
+      {/* Ambient glow blobs */}
       <div
-        className={`absolute inset-0 transition-opacity duration-700 ${stage >= 1 ? 'opacity-100' : 'opacity-0'}`}
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(circle at 50% 40%, rgba(201, 123, 134, 0.22), transparent 28%), radial-gradient(circle at 62% 58%, rgba(113, 142, 132, 0.16), transparent 30%)',
+            'radial-gradient(circle at 38% 42%, rgba(212, 160, 160, 0.2), transparent 32%), radial-gradient(circle at 65% 60%, rgba(168, 197, 176, 0.14), transparent 28%)',
         }}
       />
 
-      <div className="relative z-10 text-center px-6">
+      {/* Animated concentric rings */}
+      <div
+        ref={ring1Ref}
+        className="pointer-events-none absolute rounded-full border"
+        style={{
+          width: '420px',
+          height: '420px',
+          borderColor: 'rgba(212, 160, 160, 0.22)',
+          top: '50%',
+          left: '50%',
+          opacity: 0,
+        }}
+      />
+      <div
+        ref={ring2Ref}
+        className="pointer-events-none absolute rounded-full border"
+        style={{
+          width: '640px',
+          height: '640px',
+          borderColor: 'rgba(201, 184, 212, 0.14)',
+          top: '50%',
+          left: '50%',
+          opacity: 0,
+        }}
+      />
+      <div
+        ref={ring3Ref}
+        className="pointer-events-none absolute rounded-full border"
+        style={{
+          width: '860px',
+          height: '860px',
+          borderColor: 'rgba(168, 197, 176, 0.08)',
+          top: '50%',
+          left: '50%',
+          opacity: 0,
+        }}
+      />
+
+      <div className="relative z-10 px-6 text-center">
         <p
-          className={`text-xs uppercase tracking-[0.28em] text-muted-light transition-all duration-500 ${
-            stage >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-          }`}
+          ref={kickerRef}
+          style={{ opacity: 0 }}
+          className="text-xs uppercase tracking-[0.32em] text-muted-light"
         >
           Welcome, {guest?.name || 'dear guest'}
         </p>
 
-        <h1
-          className={`mt-5 transition-all duration-700 ${
-            stage >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <span className="block text-4xl md:text-5xl lg:text-6xl font-display text-ivory-deep">
+        <div ref={titleRef} style={{ opacity: 0 }} className="mt-6">
+          <span className="block font-display text-4xl text-ivory-deep md:text-5xl lg:text-6xl">
             Liefde in
           </span>
-          <span className="block text-6xl md:text-7xl lg:text-8xl font-script text-shimmer mt-2">
+          <span className="mt-3 block font-script text-6xl text-shimmer md:text-7xl lg:text-8xl">
             Swart en Wit
           </span>
-        </h1>
+        </div>
 
-        <div
-          className={`mx-auto mt-8 h-px transition-all duration-700 ${
-            stage >= 3 ? 'opacity-100 w-40 md:w-56' : 'opacity-0 w-0'
-          }`}
-          style={{
-            background:
-              'linear-gradient(90deg, transparent, rgba(245, 239, 231, 0.65), rgba(201, 123, 134, 0.75), transparent)',
-          }}
-        />
+        <div ref={lineRef} style={{ opacity: 0 }} className="mx-auto mt-10" aria-hidden="true">
+          <div
+            style={{
+              height: '1px',
+              width: '200px',
+              margin: '0 auto',
+              background:
+                'linear-gradient(90deg, transparent, rgba(212, 160, 160, 0.8), rgba(201, 184, 212, 0.6), transparent)',
+            }}
+          />
+        </div>
       </div>
     </div>
   );

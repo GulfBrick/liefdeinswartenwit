@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useAuth } from '@/context/AuthContext';
 
@@ -12,10 +12,28 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(timer);
+  }, []);
+
+  // Subtle parallax on mouse move for background blobs
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      if (blob1Ref.current) {
+        blob1Ref.current.style.transform = `translate(${x * 30}px, ${y * 20}px)`;
+      }
+      if (blob2Ref.current) {
+        blob2Ref.current.style.transform = `translate(${-x * 25}px, ${-y * 18}px)`;
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -32,17 +50,40 @@ export default function LoginPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden section-bg-dark">
-      <div className="pointer-events-none absolute inset-0">
+      {/* Animated background blobs */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute left-0 top-0 h-[26rem] w-[26rem] rounded-full"
+          ref={blob1Ref}
+          className="absolute rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(201, 123, 134, 0.14), transparent 70%)',
+            width: '600px',
+            height: '600px',
+            top: '-10%',
+            left: '-12%',
+            background: 'radial-gradient(circle, rgba(212,160,160,0.16) 0%, transparent 68%)',
+            transition: 'transform 0.8s ease',
           }}
         />
         <div
-          className="absolute bottom-0 right-0 h-[22rem] w-[22rem] rounded-full"
+          ref={blob2Ref}
+          className="absolute rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(168, 197, 176, 0.1), transparent 68%)',
+            width: '500px',
+            height: '500px',
+            bottom: '-8%',
+            right: '-10%',
+            background: 'radial-gradient(circle, rgba(168,197,176,0.13) 0%, transparent 65%)',
+            transition: 'transform 0.8s ease',
+          }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{
+            width: '320px',
+            height: '320px',
+            top: '40%',
+            left: '45%',
+            background: 'radial-gradient(circle, rgba(201,184,212,0.09) 0%, transparent 65%)',
           }}
         />
       </div>
@@ -50,16 +91,18 @@ export default function LoginPage() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-6 py-12">
         <div
           className={`w-full max-w-6xl overflow-hidden rounded-sm border transition-all duration-1000 ${
-            loaded ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
+            loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
           }`}
           style={{
-            borderColor: 'rgba(245, 239, 231, 0.1)',
-            background: 'rgba(10, 10, 13, 0.3)',
-            boxShadow: '0 36px 96px rgba(0, 0, 0, 0.32)',
+            borderColor: 'rgba(212,160,160,0.14)',
+            background: 'rgba(10,10,13,0.32)',
+            backdropFilter: 'blur(2px)',
+            boxShadow: '0 40px 100px rgba(0,0,0,0.4), 0 0 80px rgba(212,160,160,0.06)',
           }}
         >
           <div className="grid lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="relative min-h-[320px] lg:min-h-[760px]">
+            {/* Photo side */}
+            <div className="relative min-h-[320px] lg:min-h-[780px]">
               <AppImage
                 src="/assets/images/wedding/DSC_0174.jpeg"
                 alt="Nikita and Daniel"
@@ -73,16 +116,24 @@ export default function LoginPage() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    'linear-gradient(180deg, rgba(8, 8, 11, 0.14) 0%, rgba(8, 8, 11, 0.6) 100%)',
+                    'linear-gradient(180deg, rgba(8,8,11,0.1) 0%, rgba(8,8,11,0.65) 100%)',
+                }}
+              />
+              {/* Rose tint overlay */}
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at 30% 70%, rgba(212,160,160,0.18), transparent 55%)',
                 }}
               />
               <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#08080b] to-transparent lg:hidden" />
 
-              <div className="absolute bottom-8 left-8 right-8 lg:bottom-10 lg:left-10 lg:right-10 editorial-outline p-6 md:p-7">
-                <p className="text-[0.7rem] uppercase tracking-[0.2em] text-[#C9B8D4]">
+              <div className="editorial-outline absolute bottom-8 left-8 right-8 p-6 md:p-7 lg:bottom-10 lg:left-10 lg:right-10">
+                <p className="text-[0.7rem] uppercase tracking-[0.2em] text-coral">
                   3 October 2026 · Rayton
                 </p>
-                <p className="mt-3 text-3xl font-display text-ivory-deep md:text-4xl">
+                <p className="mt-3 font-display text-3xl text-ivory-deep md:text-4xl">
                   Featherwood Farm
                 </p>
                 <p className="mt-2 text-base leading-relaxed text-muted-light">
@@ -91,16 +142,19 @@ export default function LoginPage() {
               </div>
             </div>
 
+            {/* Form side — glassmorphism on dark */}
             <div
               className="flex flex-col justify-center p-8 md:p-12 lg:p-16"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(249, 243, 234, 0.98) 0%, rgba(240, 232, 220, 0.96) 100%)',
+                  'linear-gradient(160deg, rgba(249,243,234,0.99) 0%, rgba(238,228,214,0.98) 100%)',
                 color: '#1d1819',
               }}
             >
-              <span className="section-kicker">Private invitation</span>
-              <h1 className="mt-6 text-5xl font-display leading-[0.86] text-[#1d1819] md:text-6xl lg:text-7xl">
+              <span className="section-kicker" style={{ color: '#D4A0A0' }}>
+                Private invitation
+              </span>
+              <h1 className="mt-6 font-display text-5xl leading-[0.86] text-[#1d1819] md:text-6xl lg:text-7xl">
                 Nikita
                 <span className="my-3 block font-script text-4xl text-shimmer md:text-5xl">
                   &amp;
@@ -135,8 +189,8 @@ export default function LoginPage() {
                   <p
                     className="rounded-sm px-4 py-3 text-base text-[#5b2d34]"
                     style={{
-                      background: 'rgba(201, 123, 134, 0.14)',
-                      border: '1px solid rgba(201, 123, 134, 0.22)',
+                      background: 'rgba(212,160,160,0.16)',
+                      border: '1px solid rgba(212,160,160,0.28)',
                     }}
                   >
                     {error}
@@ -146,11 +200,11 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={isLoading || !code.trim()}
-                  className="w-full rounded-sm px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep transition-transform duration-200 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="btn-glow w-full rounded-sm px-6 py-4 text-[0.72rem] uppercase tracking-[0.18em] text-ivory-deep disabled:cursor-not-allowed disabled:opacity-40"
                   style={{
                     background:
-                      'linear-gradient(135deg, rgba(23, 20, 23, 0.96), rgba(157, 98, 108, 0.96))',
-                    boxShadow: '0 18px 38px rgba(0, 0, 0, 0.14)',
+                      'linear-gradient(135deg, rgba(212,160,160,0.95) 0%, rgba(180,120,128,0.98) 100%)',
+                    boxShadow: '0 12px 32px rgba(212,160,160,0.3)',
                   }}
                 >
                   {isLoading ? 'Verifying invitation' : 'Open invitation'}
