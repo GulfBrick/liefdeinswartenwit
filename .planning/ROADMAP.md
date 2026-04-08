@@ -10,6 +10,7 @@
 ## Phases
 
 - [ ] **Phase 3: Visual Overhaul & Content Fixes** - Sharp corners, readable text, consistent design language, and accurate programme/dress code content
+- [ ] **Phase 3.1: Premium Visual Redesign** - Rose + sage + mauve palette, hover glow effects, replace all gold accents
 - [ ] **Phase 4: Animations Refresh** - Audit existing reveal animations and add new scroll-triggered effects
 - [ ] **Phase 5: Gallery Enhancement** - New photos, grayscale-to-colour hover reveal, balanced masonry spacing
 - [ ] **Phase 6: RSVP Admin Dashboard** - Protected admin page showing all guest responses
@@ -37,6 +38,18 @@ Plans:
 - [x] 03-04-PLAN.md — Create BankingSection component and wire into page
 **UI hint**: yes
 
+### Phase 03.1: Premium Visual Redesign — Black + pastel colour theme, premium card effects, replace gold accents with soft pastels, glassmorphism/hover effects on all cards (INSERTED)
+
+**Goal:** Transform the entire wedding page from warm gold editorial to romantic elegant black + pastel (rose + sage + mauve) aesthetic with premium hover glow effects on all cards
+**Requirements**: D-01 through D-25 (from CONTEXT.md decisions)
+**Depends on:** Phase 3
+**Plans:** 3 plans
+
+Plans:
+- [ ] 03.1-01-PLAN.md — Design system foundation: update Tailwind config tokens + CSS variables/utility classes to rose/sage/mauve palette
+- [ ] 03.1-02-PLAN.md — Component colour migration: replace all hardcoded gold hex values in 12 component files
+- [ ] 03.1-03-PLAN.md — Card hover glow effects + full visual verification checkpoint
+
 ### Phase 4: Animations Refresh
 **Goal**: Every scroll-triggered animation fires reliably and the page feels alive with purposeful motion
 **Depends on**: Phase 3
@@ -61,7 +74,8 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 3. Visual Overhaul & Content Fixes | 1/4 | In Progress|  |
+| 3. Visual Overhaul & Content Fixes | 4/4 | Complete |  |
+| 3.1. Premium Visual Redesign | 0/3 | Ready | - |
 | 4. Animations Refresh | 0/? | Not started | - |
 | 5. Gallery Enhancement | 0/? | Not started | - |
 | 6. RSVP Admin Dashboard | 0/? | Not started | - |
