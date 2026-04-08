@@ -38,19 +38,19 @@ export default function BankingSection() {
             <div className="mt-6 space-y-4 border-t border-white/10 pt-6">
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Account holder</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_NAME</span>
+                <span className="text-ivory-deep font-display">Mr Daniel Harrison Swart</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Bank</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_BANK</span>
+                <span className="text-ivory-deep font-display">Nedbank</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Account number</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_ACCOUNT</span>
+                <span className="text-ivory-deep font-display">1338961527</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Branch code</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_BRANCH</span>
+                <span className="text-ivory-deep font-display">198765</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Reference</span>
@@ -79,19 +79,19 @@ export default function BankingSection() {
             <div className="mt-6 space-y-4 border-t border-white/10 pt-6">
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Account holder</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_NAME</span>
+                <span className="text-ivory-deep font-display">Mr Daniel Harrison Swart</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Bank</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_BANK</span>
+                <span className="text-ivory-deep font-display">Nedbank</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Account number</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_ACCOUNT</span>
+                <span className="text-ivory-deep font-display">1338961527</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Branch code</span>
-                <span className="text-ivory-deep font-display">PLACEHOLDER_BRANCH</span>
+                <span className="text-ivory-deep font-display">198765</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-sm text-muted">Reference</span>
