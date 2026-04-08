@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { put, list, getDownloadUrl } from '@vercel/blob';
+import { put, list, get } from '@vercel/blob';
 
 export interface RSVPEntry {
   guestCode: string;
@@ -32,10 +32,10 @@ export async function getRSVP(guestCode: string): Promise<RSVPEntry | null> {
   try {
     const { blobs } = await list({ prefix: `${BLOB_PREFIX}${guestCode}.json` });
     if (blobs.length === 0) return null;
-    const downloadUrl = await getDownloadUrl(blobs[0].url);
-    const response = await fetch(downloadUrl);
-    if (!response.ok) return null;
-    return (await response.json()) as RSVPEntry;
+    const blob = await get(blobs[0].url);
+    if (!blob) return null;
+    const text = await blob.text();
+    return JSON.parse(text) as RSVPEntry;
   } catch {
     return null;
   }
@@ -45,12 +45,12 @@ export async function getAllRSVPs(): Promise<RSVPEntry[]> {
   try {
     const { blobs } = await list({ prefix: BLOB_PREFIX });
     const entries: RSVPEntry[] = [];
-    for (const blob of blobs) {
+    for (const item of blobs) {
       try {
-        const downloadUrl = await getDownloadUrl(blob.url);
-        const response = await fetch(downloadUrl);
-        if (response.ok) {
-          entries.push((await response.json()) as RSVPEntry);
+        const blob = await get(item.url);
+        if (blob) {
+          const text = await blob.text();
+          entries.push(JSON.parse(text) as RSVPEntry);
         }
       } catch {
         // skip corrupted entries
