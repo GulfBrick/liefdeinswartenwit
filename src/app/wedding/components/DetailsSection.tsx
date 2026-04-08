@@ -61,13 +61,13 @@ export default function DetailsSection() {
                     'linear-gradient(180deg, rgba(201,123,134,0.10) 0%, transparent 100%)',
                 }}
               >
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
                   Ceremony
                 </p>
                 <h3 className="mt-4 text-3xl font-display text-ink md:text-4xl">The invitation</h3>
                 <ul className="mt-6 space-y-3">
                   {ceremonyLines.map((line) => (
-                    <li key={line} className="text-lg leading-relaxed text-[#3f3832]">
+                    <li key={line} className="text-lg leading-relaxed text-[#4A4040]">
                       {line}
                     </li>
                   ))}
@@ -76,7 +76,7 @@ export default function DetailsSection() {
                   href="https://maps.google.com/?q=Featherwood+Farm+44+Nooitgedacht+Rd+Rayton"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-[#3b322c] transition-colors hover:text-black"
+                  className="mt-8 inline-flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.18em] text-[#4A4040] transition-colors hover:text-black"
                 >
                   <span className="h-px w-8 bg-black/20" />
                   Open maps
@@ -90,13 +90,13 @@ export default function DetailsSection() {
                     'linear-gradient(180deg, rgba(113,142,132,0.07) 0%, transparent 100%)',
                 }}
               >
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
                   Celebration
                 </p>
                 <h3 className="mt-4 text-3xl font-display text-ink md:text-4xl">The evening</h3>
                 <ul className="mt-6 space-y-3">
                   {celebrationLines.map((line) => (
-                    <li key={line} className="text-lg leading-relaxed text-[#3f3832]">
+                    <li key={line} className="text-lg leading-relaxed text-[#4A4040]">
                       {line}
                     </li>
                   ))}
@@ -106,26 +106,26 @@ export default function DetailsSection() {
               <div
                 className="p-6 -m-2 rounded-sm"
                 style={{
-                  background: 'linear-gradient(180deg, rgba(183,146,81,0.07) 0%, transparent 100%)',
+                  background: 'linear-gradient(180deg, rgba(201,184,212,0.07) 0%, transparent 100%)',
                 }}
               >
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">Dress</p>
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">Dress</p>
                 <h3 className="mt-4 text-3xl font-display text-ink md:text-4xl">
                   Colourful Semi-Formal
                 </h3>
                 <ul className="mt-6 space-y-3">
                   {dressLines.map((line) => (
-                    <li key={line} className="text-lg leading-relaxed text-[#3f3832]">
+                    <li key={line} className="text-lg leading-relaxed text-[#4A4040]">
                       {line}
                     </li>
                   ))}
                 </ul>
 
                 <div className="mt-8 border-t border-black/10 pt-6">
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
+                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#C9B8D4]">
                     A gentle note
                   </p>
-                  <p className="mt-3 text-lg leading-relaxed text-[#3f3832]">
+                  <p className="mt-3 text-lg leading-relaxed text-[#4A4040]">
                     Your presence is more than enough. If you would still like to give something, a
                     contribution toward our honeymoon would be deeply appreciated.
                   </p>

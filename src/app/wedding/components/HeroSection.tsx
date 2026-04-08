@@ -47,7 +47,7 @@ export default function HeroSection() {
           className="absolute inset-0"
           style={{
             background:
-              'radial-gradient(circle at 18% 28%, rgba(201, 123, 134, 0.18), transparent 24%), radial-gradient(circle at 80% 22%, rgba(183, 146, 81, 0.12), transparent 18%)',
+              'radial-gradient(circle at 18% 28%, rgba(201, 123, 134, 0.18), transparent 24%), radial-gradient(circle at 80% 22%, rgba(168, 197, 176, 0.12), transparent 18%)',
           }}
         />
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-[#08080b] to-transparent" />
@@ -124,7 +124,7 @@ export default function HeroSection() {
           >
             <div className="max-w-[26rem] lg:ml-auto">
               <div className="editorial-card p-8 md:p-10">
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8A6F45]">
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#D4A0A0]">
                   Invitation details
                 </p>
                 <h2 className="mt-5 text-4xl font-display leading-[0.94] text-ink md:text-[3.15rem]">
@@ -135,7 +135,7 @@ export default function HeroSection() {
                   <div className="space-y-5">
                     {invitationMeta.map((item) => (
                       <div key={item.label} className="flex items-start justify-between gap-6">
-                        <p className="text-[0.72rem] uppercase tracking-[0.16em] text-[#8A6F45]">
+                        <p className="text-[0.72rem] uppercase tracking-[0.16em] text-[#D4A0A0]">
                           {item.label}
                         </p>
                         <p className="max-w-[15rem] text-right text-xl font-display leading-snug text-[#312b27]">
@@ -146,13 +146,13 @@ export default function HeroSection() {
                   </div>
                 </div>
 
-                <p className="mt-8 border-t border-[#d9ccb9] pt-5 text-[0.74rem] uppercase tracking-[0.18em] text-[#6f5f54]">
+                <p className="mt-8 border-t border-[#d9ccb9] pt-5 text-[0.74rem] uppercase tracking-[0.18em] text-[#8A7F7F]">
                   Adults-only celebration · Dinner and dancing to follow
                 </p>
               </div>
 
               <div className="ml-auto mt-4 max-w-[18rem] editorial-outline p-5">
-                <p className="text-[0.7rem] uppercase tracking-[0.16em] text-[#c7ab78]">
+                <p className="text-[0.7rem] uppercase tracking-[0.16em] text-[#C9B8D4]">
                   A dress note
                 </p>
                 <p className="mt-2 text-2xl font-display text-ivory-deep">Colourful Semi-Formal</p>

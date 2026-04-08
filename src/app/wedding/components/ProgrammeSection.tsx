@@ -94,7 +94,7 @@ export default function ProgrammeSection() {
                 if ('separator' in entry && entry.separator) {
                   return (
                     <div key={`${entry.label}-${index}`} className="border-b border-white/10 py-4">
-                      <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[#c7ab78]">
+                      <p className="text-[0.72rem] uppercase tracking-[0.2em] text-[#D4A0A0]">
                         {entry.label}
                       </p>
                     </div>

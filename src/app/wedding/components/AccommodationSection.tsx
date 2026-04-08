@@ -83,7 +83,7 @@ export default function AccommodationSection() {
               }`}
             >
               <div>
-                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+                <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
                   {option.mood}
                 </p>
                 <h3 className="mt-3 text-3xl font-display text-ivory-deep">{option.name}</h3>
@@ -104,7 +104,7 @@ export default function AccommodationSection() {
 
               <div className="grid gap-4 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
                     Sharing
                   </p>
                   <p className="mt-2 text-2xl font-display text-ivory-deep">
@@ -112,13 +112,13 @@ export default function AccommodationSection() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">
+                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">
                     Single
                   </p>
                   <p className="mt-2 text-2xl font-display text-ivory-deep">{option.priceSingle}</p>
                 </div>
                 <div>
-                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#c7ab78]">Rooms</p>
+                  <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#A8C5B0]">Rooms</p>
                   <p className="mt-2 text-2xl font-display text-ivory-deep">{option.roomCount}</p>
                 </div>
               </div>
