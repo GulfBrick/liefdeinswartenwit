@@ -58,21 +58,9 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { list } = await import('@vercel/blob');
-    const allBlobs = await list({ prefix: 'rsvps/' });
     const rsvp = await getRSVP(guest.code);
-    return NextResponse.json({
-      rsvp,
-      debug: {
-        blobCount: allBlobs.blobs.length,
-        blobs: allBlobs.blobs.map((b) => ({
-          url: b.url,
-          pathname: b.pathname,
-        })),
-      },
-    });
-  } catch (err) {
-    const msg = err instanceof Error ? err.message : String(err);
-    return NextResponse.json({ rsvp: null, debugError: msg });
+    return NextResponse.json({ rsvp });
+  } catch {
+    return NextResponse.json({ rsvp: null });
   }
 }
