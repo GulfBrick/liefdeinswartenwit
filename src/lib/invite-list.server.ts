@@ -60,6 +60,8 @@ export const guestList: Guest[] = [
   { code: 'NIKDAN-OPALE-K2L3', name: 'Opal', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-ALFIE-M4N5', name: 'Alfie', maxGuests: 1, hasRSVPd: false },
   { code: 'NIKDAN-LEONV-P6Q7', name: 'Leon', maxGuests: 1, hasRSVPd: false },
+  { code: 'NIKDAN-PRINS-R7S8', name: 'Sanchia & Jacques', maxGuests: 2, hasRSVPd: false, plusOne: true },
+  { code: 'NIKDAN-IMELD-T9U2', name: 'Imelda', maxGuests: 1, hasRSVPd: false },
 ];
 
 export function findGuestByCode(code: string): Guest | null {
